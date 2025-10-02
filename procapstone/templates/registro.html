@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>SP – Registro / Login</title>
+        <style>
+
+            .navbar {
+              border-bottom: 1px solid #ddd;
+              background: #fff;
+              position:sticky; top:0; z-index:10;
+            }
+
+            .navwrap {
+              max-width: var(--maxw);
+              margin: 0 auto;
+              display: grid;
+              align-items: center;
+              justify-content: space-between;
+              padding: 16px 20px;
+            }
+
+            .cards{
+              max-width:var(--maxw); margin:0 auto; padding:0 20px;
+              display:grid; grid-template-columns: 1fr 1fr; gap:48px;
+            }
+
+            .container-flex{
+                display: flex;
+                justify-content: center;
+                align-items: flex-start; /* Alinea los cuadros arriba */
+                gap: 60px;
+                margin-top: 40px;
+            }
+
+            .card{
+              width: 350px;
+              height: 350px;
+              background: var(--card);
+              background-color: rgba(128, 128, 128, 0.862);
+              border-radius:30px;
+              padding:36px 28px 56px;
+              min-height: 240px;
+              margin-bottom: 20px;
+              display: inline-block;
+              flex-direction:column; 
+              align-items:center; 
+              justify-content:flex-start;
+              box-shadow: 0 4px 16px rgba(0,0,0,.08);
+              text-align:center;
+              margin-top: 0;
+            } 
+
+            .card h3{margin:0 0 18px; font-size:20px;}
+
+            .placeholder{
+                 border:2px dashed rgba(0,0,0,.25);
+                 border-radius:16px;
+                 padding:22px 14px; width:100%; max-width:420px;
+                 font-weight:700; letter-spacing:.5px;
+            }
+
+            .article{
+                background-color: gray;
+            }
+
+            .span{
+                display:inline-block;
+                text-align: center;
+                justify-content: flex-start;
+            }
+
+            input[type="text"], input[type="password"] {
+                margin-bottom: 10px;
+            }
+
+            .input-row{
+                display:flex;
+                align-items: center;
+                margin-bottom:8px;
+            }
+
+            .input-row label{
+                min-width: 100px;
+                margin-right: 8px;
+
+            }
+
+            .input-row input{
+                flex: 1;
+            }
+
+            .hero {
+                background-image: url("../static/img/propiedad-reg.jpeg");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                min-height: 400px;
+                padding: 40px 0;
+            }
+
+            .hr{
+                background-color: gray;
+            }
+
+            .horizontal-list {
+              display: flex;
+              gap: 32px; /* Espacio entre opciones */
+              list-style: none;
+              padding: 0;
+
+            }
+
+            .horizontal-list li{
+                margin: 0;
+                
+            }
+
+        </style>
+     </head>
+    <body>
+            <header class="navbar">
+                <div class="navwrap">
+                  <h2><header style="color:red">STOCK PRO</header></h2>
+                  <nav class="menu" aria-label=" Menu principal">
+                    <ul class="horizontal-list">
+                     <li class="nav-item active">
+                        <a href="" style="color: black;" type="button" class="nav-link" title="Log in">
+                            <span class="glyphicon glyphicon-log-in">Opcion 1</span></a>   
+                     </li>
+                     <li class="nav-item">
+                        <a href="" style="color: black;" type="button" class="nav-link" title="Log in">
+                            <span class="glyphicon glyphicon-log-in"></span>Opcion 2</a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="" style="color: black;" type="button" class="nav-link" title="Log in">
+                            <span class="glyphicon glyphicon-log-in"></span>Opcion 3</a>
+                     </li>
+                    </ul>  
+                </div>
+               </nav>
+               <div class="right"><a href="#">SERVICIO TECNICO</a></div>
+            </header>
+
+
+        <section class="hero" role="img" aria-label="Imagen de fondo">
+             <div class="container-flex">
+                <div class="hero-title">
+
+                    <article class="card">
+                        <h3>Registrarse</h3>
+                        <div class="placeholder">FORMULARIO</div>
+                         
+                        <div class="input-row">
+                           <label for="username">Email</label>
+                              <input type="text" name="username" id="username" placeholder="Ingrese su email">
+                         </div>
+
+                         <div class="input-row">
+                           <label for="username">Usuario</label>
+                              <input type="text" name="username" id="username" placeholder="Ingrese su nombre de usuario">
+                         </div>
+
+                         <div class="input-row">
+                           <label for="password">Password</label>
+                              <input type="password" name="password" id="password" placeholder="Ingrese su clave password">
+                         </div>
+
+                         <div class="input-row">
+                           <label for="password">Confirmar<hr>Password</label>
+                              <input type="password" name="password" id="password" placeholder="Ingrese nuevamente su clave password">
+                         </div>
+
+                         <div class="input-row">
+                           <label for="password">No soy un robot xdd</label>
+                              <input type="password" name="password" id="password" placeholder="Ingrese nuevamente su clave password">
+                         </div>
+
+                         <div class="input-row">
+                           <label for="password">hola dfvdf</label>
+                              <input type="password" name="password" id="password" placeholder="Ingrese nuevamente su clave password">
+                         </div>
+
+
+
+                         
+                         <div class="cajaTexto">
+                             <button type="submit">Registrarse</button></center>
+                          </div>
+
+                    </article>
+                </div>
+                 <div class="container-flex"></div>
+                    <article class="card">
+                        <h3>Iniciar sesion</h3>
+                        <div class="placeholder">FORMULARIO</div>
+                         <div class="input-row">
+                           <label for="username">Usuario</label>
+                              <input type="text" name="username" id="username" placeholder="Ingrese su usuario">
+                         </div>
+
+                         <div class="input-row">
+                           <label for="password">Password</label>
+                              <input type="password" name="password" id="password" placeholder="Ingrese su constraseña">
+                         </div>
+
+                          <div class="cajaTexto">
+                             <button type="submit">Iniciar Sesion</button></center>
+                          </div>
+
+                          <div class="cajaTexto">
+                             <a href="{% url 'index' %}"><button type="submit">Volver</a></button>
+                          </div>
+
+                  </div>
+                    </article>
+                </div>
+             </div>
+        </section>
+
+        <section class="below">
+
+        </section>
+
+    </body>
+</html>
