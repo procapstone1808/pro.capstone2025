@@ -10,6 +10,14 @@
               border-bottom: 1px solid #ddd;
               background: #fff;
               position:sticky; top:0; z-index:10;
+              display: flex;
+              flex-direction: row;
+              justify-content: center; /* Centra el menú horizontalmente */
+              align-items: center;
+              width: 100%;
+              gap: 40px; /* Espacio entre opciones */
+              margin: 0;
+              padding: 0;
             }
 
             .navwrap {
@@ -123,7 +131,9 @@
             <header class="navbar">
                 <div class="navwrap">
                   <h2><header style="color:red">STOCK PRO</header></h2>
-                  <nav class="menu" aria-label=" Menu principal">
+                  <!--<nav class="menu" aria-label=" Menu principal">-->
+                  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom:0;">
+                    <div style="width:100%;">
                     <ul class="horizontal-list">
                      <li class="nav-item active">
                         <a href="" style="color: black;" type="button" class="nav-link" title="Log in">
@@ -172,11 +182,6 @@
                               <input type="password" name="password" id="password" placeholder="Ingrese nuevamente su clave password">
                          </div>
 
-                         <div class="input-row">
-                           <label for="password">No soy un robot</label>
-                              <input type="password" name="password" id="password" placeholder="Ingrese nuevamente su clave password">
-                         </div>
-
                          
                          <div class="cajaTexto">
                              <button type="submit">Registrarse</button></center>
@@ -188,14 +193,16 @@
                     <article class="card">
                         <h3>Iniciar sesion</h3>
                         <div class="placeholder">FORMULARIO</div>
+                        <form id="login-form" method="post" action="">
+                          {% csrf_token %}
                          <div class="input-row">
-                           <label for="username">Usuario</label>
-                              <input type="text" name="username" id="username" placeholder="Ingrese su usuario">
+                           <label for="login-usuario">Usuario</label>
+                              <input type="text" name="login-usuario" id="usuario" placeholder="Ingrese su usuario">
                          </div>
 
                          <div class="input-row">
-                           <label for="password">Password</label>
-                              <input type="password" name="password" id="password" placeholder="Ingrese su constraseña">
+                           <label for="login-password">Password</label>
+                              <input type="password" name="login-password" id="password" placeholder="Ingrese su constraseña">
                          </div>
 
                           <div class="cajaTexto">
@@ -205,16 +212,13 @@
                           <div class="cajaTexto">
                              <a href="{% url 'index' %}"><button type="submit">Volver</a></button>
                           </div>
-
+                        </form>
                   </div>
                     </article>
                 </div>
              </div>
         </section>
-
         <section class="below">
-
         </section>
-
     </body>
 </html>

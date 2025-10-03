@@ -8,15 +8,31 @@
         <link rel="stylesheet" href="{% static 'css/css.css' %}">
         <style>
             .navbar-nav {
-                font-size: 1.5rem; /* Agranda el texto */
-                justify-content: flex-end; /* Mueve el menú a la derecha */
-            }
-            .navbar-nav.flex-row {
+                font-size: 1.1rem; /* Agranda el texto */
                 display: flex;
                 flex-direction: row;
+                justify-content: center; /* Centra el menú horizontalmente */
+                align-items: center;
+                width: 100%;
+                gap: 40px; /* Espacio entre opciones */
+                margin: 0;
+                padding: 0;
             }
             .nav-item {
-                margin-right: 20px;
+                margin: 0;
+                padding: 0;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            .nav-link {
+                color: black !important;
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+            .navbar {
+                background: #fafbfc !important;
+                border: none;
+                box-shadow: none;
             }
         </style>
     </head>
@@ -30,14 +46,9 @@
 
 
         <div class="lario">
-
-           <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div>
+        <div class="lario">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom:0;">
+                <div style="width:100%;">
                 <ul class="navbar-nav flex-row">
                     <li class="nav-item active">
                         <a href="{% url 'registro' %}" style="color: black;" type="button" class="nav-link" title="Log in">
@@ -79,15 +90,12 @@
                         <a href="" style="color: black;" type="button" class="nav-link" title="Log in">
                            <span class="glyphicon glyphicon-log-in"></span>Quienes somos</a>
                     </li>
-
-
-                    
-
+    
                 </ul>
             </div>
           </nav>
         </div>
-        <center><a href=""><img src="{% static 'img/casa.jpg' %}" id="casa" width="75%"></a></center>
+      <center><a href=""><img src="{% static 'img/casa.jpg' %}" id="casa" width="80%"></a></center>
     </body>
 </html>
      
