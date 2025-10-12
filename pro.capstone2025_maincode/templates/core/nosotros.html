@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- Bloque Navbar items -->
+
+{% block nav_items %}
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:registro' %}">Registrarse</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:login' %}">Login</a></li>
+  
+{% endblock %}
+
+<!-- Contenido Pagina -->
+
+{% block content %}
+<section class="">
+
+ 
+
+  <!-- CARD sobre el carrusel -->
+  <div class="hero-welcome card shadow-lg">
+    <div class="card-body p-4 p-md-5 text-center">
+      <h2 class="mb-1">Somos STOCK PRO </h2>
+      <p class="mb-0 text-muted">Empresa dedicada a la gestion inmobiliaria, comprometida con entregar soluciones modernas y eficientes para la administracion de propiedades. Nuestra mision es simplificar <br>
+        y optimizar los procesos de manejo de gestion inmobiliaria, eliminando la dispersion de documentos fisicos y digitales<br>
+        para brindar un acceso centralizado, rapido y seguro</p>
+    </div>
+  </div>
+
+</section>
+{% endblock %}

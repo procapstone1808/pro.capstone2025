@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- Bloque Navbar items -->
+
+{% block nav_items %}
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Perfil</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="">Propiedades</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:login' %}">Documentos</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:nosotros' %}">Nosotros</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
+{% endblock %}
+
+
+<!-- Contenido Pagina -->
+
+{% block content %}
+<section class="home-hero full-bleed">
+
+  <!-- CARRUSEL (fondo) -->
+  <div id="homeCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'img/propiedad-reg.jpeg' %}" class="d-block w-100" alt="Imagen 1">
+      </div>
+  </div>
+
+
+</section>
+      
+
+
+{% endblock %}
