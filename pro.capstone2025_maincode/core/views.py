@@ -9,39 +9,24 @@ from .models import SpUsuario
 def index(request):
     return render(request, "core/index.html")
 
-
 def registro_view(request):
-    if request.method == 'POST':
-        form = RegistroForm(request.POST)
+    form = RegistroForm(request.POST or None)
+
+    if request.method == "POST":
         if form.is_valid():
-            cd = form.cleaned_data
-            # Duplicidad (RUT y Email)
-            if SpUsuario.objects.filter(rut=cd['rut']).exists():
-                form.add_error('rut', 'Ya existe un usuario con este RUT.')
-            elif SpUsuario.objects.filter(email__iexact=cd['email']).exists():
-                form.add_error('email', 'Ya existe un usuario con este email.')
-            else:
-                with transaction.atomic():
-                    SpUsuario.objects.create(
-                        rut=cd['rut'].strip(),
-                        nombre=cd['nombre'].strip(),
-                        email=cd['email'].strip(),
-                        telefono=(cd.get('telefono') or '').strip(),
-                        rol=cd['rol'],   # plano (simple)
-                        is_active='Y',
-                        password=cd['password']
-                    )
-                # Guarda datos mínimos en sesión y redirige (REVISAR )
-                u = SpUsuario.objects.get(rut=cd['rut'])
-                request.session['sp_user_id'] = int(u.usuario_id)
-                request.session['sp_user_nombre'] = u.nombre
-                request.session['sp_user_rol'] = u.rol
-                messages.success(request, "¡Registro exitoso!")
-                return redirect('core:main_registrado')
-    else:
-        form = RegistroForm()
+            nuevo_usuario = form.save(commit=False)
+          
+            nuevo_usuario.is_active = 'Y'
+
+            #CORREGIR AUN NO FUNCIONA
+           
+            nuevo_usuario.save()  
+
+           
+            return redirect('index')  
 
     return render(request, 'core/registro.html', {'form': form})
+
 
 def login_view(request):
     if request.method == 'POST':
