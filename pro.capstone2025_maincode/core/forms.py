@@ -1,43 +1,24 @@
 import re
 from django import forms
+from .models import SpUsuario
 
-ROLE_CHOICES = [('ADMIN', 'ADMIN'), ('CORREDOR', 'CORREDOR')]
+class RegistroForm(forms.ModelForm):
+    class Meta:
+        model = SpUsuario
+        # Campos que el usuario SI llena en el registro:
+        fields = ['rut', 'nombre', 'email', 'telefono', 'rol', 'pass_field']
 
-# Validar Registro
-class RegistroForm(forms.Form):
-    rut = forms.CharField(
-        max_length=12, label='RUT',
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': '12.345.678-9',
-            'autocomplete': 'off'
-        })
-    )
-    nombre = forms.CharField(
-        max_length=120, label='Nombre',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre completo'})
-    )
-    email = forms.EmailField(
-        max_length=120, label='Email',
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'correo@dominio.cl'})
-    )
-    telefono = forms.CharField(
-        max_length=20, label='Teléfono', required=False,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+56 9 1234 5678'})
-    )
-    password = forms.CharField(
-        label='Contraseña',
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Mínimo 8 caracteres'})
-    )
-    password2 = forms.CharField(
-        label='Confirmar contraseña',
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Repite la contraseña'})
-    )
-    rol = forms.ChoiceField(
-        label='Rol', choices=ROLE_CHOICES,
-        widget=forms.Select(attrs={'class': 'form-select'})
-        
-    )
+        labels = {
+            'rut': 'RUT',
+            'nombre': 'Nombre',
+            'email': 'Email',
+            'telefono': 'Teléfono',
+            'rol': 'Rol',
+            'pass_field': 'Contraseña',
+        }
+        widgets = {
+            'pass_field': forms.PasswordInput(),
+        }
 
 # Validar Login
 class LoginForm(forms.Form):

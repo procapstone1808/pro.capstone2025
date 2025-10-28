@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, login_view, registro_view,ayuda_view, nosotros_view, propiedad_view, salir, mainregistrado_view,  gestordocumentos_view, propiedades_view
+from .views import index, login_view, registro_view, ayuda_view, nosotros_view, propiedad_view, salir, mainregistrado_view,  gestordocumentos_view, propiedades_view
 
 app_name = 'core'
 urlpatterns = [ 

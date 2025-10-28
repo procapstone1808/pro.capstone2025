@@ -75,12 +75,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        # Opción A (recomendada): host/puerto/servicio explícito
-        'NAME': '127.0.0.1:1521/XEPDB1',   # o '127.0.0.1:1521/XE'
-        'USER': 'STOCKPRO1808',
-        'PASSWORD': 'stockpro1808',
-        # 'OPTIONS': {'threaded': True},  # opcional
+        'ENGINE': 'django.db.backends.oracle', 
+        'NAME': 'localhost:1521/XEPDB1', 
+        'USER': 'stockpro',
+        'PASSWORD': 'stockpro_1808',
+       
     }
 }
 
