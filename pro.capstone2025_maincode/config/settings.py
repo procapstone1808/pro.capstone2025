@@ -73,13 +73,30 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+#Conexion a Oracle (OFICIAL)
+#DATABASES = {
+    #'default': {
+        #'ENGINE': 'django.db.backends.oracle', 
+        #'NAME': 'localhost:1521/XEPDB1', 
+        #'USER': 'stockpro',
+        #'PASSWORD': 'stockpro_1808',
+       
+    #}
+#}
+
+#Mysql (NO OFICIAL)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle', 
-        'NAME': 'localhost:1521/XEPDB1', 
-        'USER': 'stockpro',
-        'PASSWORD': 'stockpro_1808',
-       
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'stockpro',        # cámbialo si tu BD se llama distinto
+        'USER': 'root',            # cámbialo por tu usuario MySQL
+        'PASSWORD': 'root',            # pon aquí tu clave de MySQL
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
