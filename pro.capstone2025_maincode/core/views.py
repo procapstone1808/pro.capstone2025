@@ -87,3 +87,6 @@ def propiedad_view(request):
 
 def propiedadform_view(request):
     return render(request, "core/propiedadform.html")
+
+def editarform_view(request):
+    return render(request, "core/editar-propform.html")
