@@ -90,3 +90,6 @@ def propiedadform_view(request):
 
 def editarform_view(request):
     return render(request, "core/editar-propform.html")
+
+def misprop_view(request):
+    return render(request, "core/misprop.html")

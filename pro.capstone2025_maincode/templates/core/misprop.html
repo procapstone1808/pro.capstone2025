@@ -7,39 +7,13 @@
   
 {% endblock %}
 
-{% block title %}Mis propiedades{% endblock %}
 {% block content %}
-
-<!--CAMBIAR ESTE CODIGO A ARCHIVO CSS MAS ADELANTE!!-->
-<style>
-.cards-wrap{
-  display:flex;
-  flex-wrap:wrap;
-  gap:16px;                 /* separación de cards */
-}
-
-.cards-wrap .card{ width:18rem; }
-
-.card-img-top{ height:160px; object-fit:cover; }
-</style>
-
-<!--<div class="sp-grid">
-
- <a class="sp-card sp-card--cta" href="">
-    <div class="sp-card__body text-center">
-        <p class="sp-card__subtitle">Crear una nueva propiedad</p>
-        <div class="sp-card__plus">d</div>
-   </div>
- </a>
-
-</div>-->
-
 <div class="cards-wrap">
 
  <div class="card" style="width: 25rem;">
   <img class="card-img-top" src="{% static 'img/crear-prop.jpg' %}" alt="propiedad">
   <div class="card-body">
-    <p class="card-text">Crear una nueva propiedad</p>
+    <p class="card-text">Propiedad 1</p>
     <button class="btn btn-primary" type="button"><a href="{% url 'core:propiedadform' %}">Ingresar</a></button>
   </div>
  </div>
@@ -47,25 +21,20 @@
  <div class="card" style="width: 25rem;">
   <img class="card-img-top" src="{% static 'img/propiedad-reg.jpeg' %}" alt="editar">
   <div class="card-body">
-    <p class="card-text">Editar propiedad</p>
-    <button class="btn btn-primary" type="button"><a href="{% url 'core:editar-propform' %}">Editar</a></button>
+    <p class="card-text">Propiedad 2</p>
+    <button class="btn btn-primary" type="button"><a href="">Editar</a></button>
   </div>
  </div>
 
  <div class="card" style="width: 25rem;">
   <img class="card-img-top" src="{% static 'img/ver-prop.jpeg' %}" alt="ver">
   <div class="card-body">
-    <p class="card-text">Ver propiedad</p>
+    <p class="card-text">Propiedad 3</p>
     <button class="btn btn-primary" type="button">Verificar</button>
   </div>
  </div>
 
 </div>
-
-
-
-
-
 
 
 
