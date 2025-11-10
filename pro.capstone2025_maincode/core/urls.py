@@ -15,7 +15,7 @@ urlpatterns = [
     path("propiedadcrud/", propiedad_view, name="propiedad"), 
     path("propiedadform/", propiedadform_view, name="propiedadform"),
     path("editar-propform/", editarform_view, name="editar-propform"),
-    path("misprop/", misprop_view, name="mispropiedades"),
+    path("misprop/", misprop_view, name="misprop"),
     
     #path("propiedades/<int:pk>/editar/", PropiedadUpdateView.as_view(), name="propiedad_editar"),
 

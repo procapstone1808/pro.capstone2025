@@ -8,28 +8,41 @@
 {% endblock %}
 
 {% block content %}
+<!--CAMBIAR ESTE CODIGO A ARCHIVO CSS MAS ADELANTE!!-->
+<style>
+.cards-wrap{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;                 /* separación de cards */
+}
+
+.cards-wrap .card{ width:18rem; }
+
+.card-img-top{ height:160px; object-fit:cover; }
+</style>
+
 <div class="cards-wrap">
 
  <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/crear-prop.jpg' %}" alt="propiedad">
+  <img class="card-img-top" src="{% static 'img/propiedad1.jpg' %}" alt="propiedad">
   <div class="card-body">
-    <p class="card-text">Propiedad 1</p>
+    <p class="card-text">Casa Subsidio en Viña del Mar</p>
     <button class="btn btn-primary" type="button"><a href="{% url 'core:propiedadform' %}">Ingresar</a></button>
   </div>
  </div>
 
  <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/propiedad-reg.jpeg' %}" alt="editar">
+  <img class="card-img-top" src="{% static 'img/propiedad2.jpg' %}" alt="editar">
   <div class="card-body">
-    <p class="card-text">Propiedad 2</p>
+    <p class="card-text">Casa en condominio 'El Magnolio' Peñalolen</p>
     <button class="btn btn-primary" type="button"><a href="">Editar</a></button>
   </div>
  </div>
 
  <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/ver-prop.jpeg' %}" alt="ver">
+  <img class="card-img-top" src="{% static 'img/propiedad3.jpg' %}" alt="ver">
   <div class="card-body">
-    <p class="card-text">Propiedad 3</p>
+    <p class="card-text">Casa Sector Oriente Santiago</p>
     <button class="btn btn-primary" type="button">Verificar</button>
   </div>
  </div>
