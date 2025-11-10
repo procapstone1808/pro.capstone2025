@@ -2,13 +2,9 @@ from django.db import models
 
 
 class SpUsuario(models.Model):
-    usuario_id = models.DecimalField(
-        primary_key=True,
-        max_digits=11,
-        decimal_places=0,
+    usuario_id = models.AutoField(
         db_column='USUARIO_ID',
-        editable=False,
-        auto_created=True,
+        primary_key=True,
     )
     rut = models.CharField(max_length=12, db_column='RUT')
     nombre = models.CharField(max_length=120, db_column='NOMBRE')
