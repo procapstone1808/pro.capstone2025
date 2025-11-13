@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import UpdateView
+from django.urls import reverse
 #from .models import Propiedad
 #from .forms import PropiedadForm
 
@@ -37,3 +38,20 @@ class PropiedadUpdateView (LoginRequiredMixin, UpdateView):
     #form_class = PropiedadForm
     template_name = 'core/propiedadform.html'
     success_url = reverse_lazy("core:propiedad_lista")
+
+class Propiedad(models.Model):
+    ESTADOS = (("draft", "Borrador"), ("published", "Publicado"))
+    nombre = models.CharField(max_length=120)
+    ubicacion = models.CharField(max_length=180, blank=True)
+    descripcion = models.TextField(blank=True)
+    imagen = models.ImageField(upload_to='propiedades/', blank=True, null=True)
+    activo = models.BooleanField(default=True)
+    estado = models.CharField(max_length=10, choices=ESTADOS, default="draft")
+    creado_en = models.DateTimeField(auto_now_add=True)
+    actualizado = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse('core:editar-propform', args=[self.pk] )
+
+
+    
