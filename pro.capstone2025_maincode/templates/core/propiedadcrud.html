@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_items %}
+  <li class="nav-item"><a class="nav-link fw-semibold" href="">Mis Propiedades</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
+  
+{% endblock %}
+
+{% block title %}Mis propiedades{% endblock %}
+{% block content %}
+
+<!--CAMBIAR ESTE CODIGO A ARCHIVO CSS MAS ADELANTE!!-->
+<style>
+.cards-wrap{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;                 /* separación de cards */
+}
+
+.cards-wrap .card{ width:18rem; }
+
+.card-img-top{ height:160px; object-fit:cover; }
+</style>
+
+<!--<div class="sp-grid">
+
+ <a class="sp-card sp-card--cta" href="">
+    <div class="sp-card__body text-center">
+        <p class="sp-card__subtitle">Crear una nueva propiedad</p>
+        <div class="sp-card__plus">d</div>
+   </div>
+ </a>
+
+</div>-->
+
+<div class="cards-wrap">
+
+ <div class="card" style="width: 25rem;">
+  <img class="card-img-top" src="{% static 'img/crear-prop.jpg' %}" alt="propiedad">
+  <div class="card-body">
+    <p class="card-text">Crear una nueva propiedad</p>
+    <button class="btn btn-primary" type="button"><a href="{% url 'core:propiedadform' %}">Ingresar</a></button>
+  </div>
+ </div>
+
+ <div class="card" style="width: 25rem;">
+  <img class="card-img-top" src="{% static 'img/propiedad-reg.jpeg' %}" alt="editar">
+  <div class="card-body">
+    <p class="card-text">Editar propiedad</p>
+    <button class="btn btn-primary" type="button"><a href="{% url 'core:editar-propform' %}">Editar</a></button>
+  </div>
+ </div>
+
+ <div class="card" style="width: 25rem;">
+  <img class="card-img-top" src="{% static 'img/ver-prop.jpeg' %}" alt="ver">
+  <div class="card-body">
+    <p class="card-text">Ver Mis propiedades</p>
+    <button class="btn btn-primary" type="button"><a href="{% url 'core:misprop' %}">Verificar</a></button>
+  </div>
+ </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

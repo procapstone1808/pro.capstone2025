@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, login_view, registro_view, ayuda_view, nosotros_view, propiedad_view, salir, mainregistrado_view,  gestordocumentos_view, propiedades_view
+from .views import index, login_view, registro_view, ayuda_view, nosotros_view, propiedad_view, salir, mainregistrado_view,  gestordocumentos_view, propiedades_view, propiedadform_view, editarform_view, misprop_view #PropiedadUpdateView
 
 app_name = 'core'
 urlpatterns = [ 
@@ -13,6 +13,11 @@ urlpatterns = [
     path("propiedades/", propiedades_view, name="propiedades"),
     path("gestor-documentos/", gestordocumentos_view, name="gestor-documentos"),
     path("propiedadcrud/", propiedad_view, name="propiedad"), 
+    path("propiedadform/", propiedadform_view, name="propiedadform"),
+    path("editar-propform/", editarform_view, name="editar-propform"),
+    path("misprop/", misprop_view, name="misprop"),
+    
+    #path("propiedades/<int:pk>/editar/", PropiedadUpdateView.as_view(), name="propiedad_editar"),
 
     
 
