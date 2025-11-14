@@ -84,3 +84,12 @@ def gestordocumentos_view(request):
 
 def propiedad_view(request):
     return render(request, "core/propiedadcrud.html")
+
+def propiedadform_view(request):
+    return render(request, "core/propiedadform.html")
+
+def editarform_view(request):
+    return render(request, "core/editar-propform.html")
+
+def misprop_view(request):
+    return render(request, "core/misprop.html")

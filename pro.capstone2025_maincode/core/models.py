@@ -1,4 +1,10 @@
 from django.db import models
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import UpdateView
+#from .models import Propiedad
+#from .forms import PropiedadForm
+
 
 
 class SpUsuario(models.Model):
@@ -20,3 +26,10 @@ class SpUsuario(models.Model):
 
     def __str__(self):
         return f"{self.nombre} ({self.rut})"
+    
+
+class PropiedadUpdateView (LoginRequiredMixin, UpdateView):
+    #model = Propiedad
+    #form_class = PropiedadForm
+    template_name = 'core/propiedadform.html'
+    success_url = reverse_lazy("core:propiedad_lista")
