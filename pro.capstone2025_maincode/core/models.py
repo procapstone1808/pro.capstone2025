@@ -33,3 +33,4 @@ class PropiedadUpdateView (LoginRequiredMixin, UpdateView):
     #form_class = PropiedadForm
     template_name = 'core/propiedadform.html'
     success_url = reverse_lazy("core:propiedad_lista")
+
