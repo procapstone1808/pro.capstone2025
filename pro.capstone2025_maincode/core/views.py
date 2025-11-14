@@ -23,7 +23,7 @@ def registro_view(request):
             nuevo_usuario.save()  
 
            
-            return redirect('index')  
+            return redirect('core:index')  
 
     return render(request, 'core/registro.html', {'form': form})
 
