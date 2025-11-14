@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- Bloque Navbar items -->
+
+{% block nav_items %}
+  <li class="nav-item"><a class="nav-link fw-semibold" href="">Gestor documentos</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
+  
+{% endblock %}
+
+
+<!-- Contenido Pagina -->
+
+{% block content %}
+
+
+<section class="hero-propiedades">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            <!-- Columna izquierda: Acciones -->
+            <div class="col-12 col-lg-5">
+                <div class="glass-card p-4 p-md-5">
+                    <div class="vstack gap-3">
+                        <button class="pill-btn" type="button">Ingresar nuevo documento</button>
+                        <button class="pill-btn" type="button">Editar documento</button>
+                        <button class="pill-btn" type="button">Eliminar documento</button>
+                        <button class="pill-btn" type="button">Cambiar estado de documento</button>
+                    </div>
+               </div>
+            </div>
+
+            <!-- Columna derecha: Formulario -->
+
+            <div class="col-12 col-lg-5">
+                <div class="glass-card p-4 p-md-5">
+                    <span class="pill-title mb-4">Buscar documento</span>
+
+                    <form class="vstack gap-3" action="#" method="post">
+                        {% csrf_token %}
+                        <label class="visually-hidden" for="rol">ROL</label>
+                        <input class="pill-input" id="rol" name="rol" type="text" placeholder="INGRESE el rol del documento" required>
+
+                        <label class="visually-hidden" for="tipo">TIPO</label>
+                        <input class="pill-input" id="tipo" name="tipo" type="text" placeholder="INGRESE tipo de documento" required>
+
+                        <label class="visually-hidden" for="otro">Otro dato</label>
+                        <input class="pill-input" id="otro" name="otro" type="text" placeholder="INGRESE..." required>
+
+                        <div class="d-flex gap-2 pt-2">
+                            <button class="pill-btn" type="submit">Guardar</button>
+                            <button class="pill-btn" type="submit">Buscar</button>
+                            <button class="pill-btn" type="reset" style="background:#c3c3f7;">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /row -->
+    </div>  <!-- /container -->
+</section>
+
+
+
+{% endblock %}

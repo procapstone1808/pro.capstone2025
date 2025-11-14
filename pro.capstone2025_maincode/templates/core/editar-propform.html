@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_items %}
+  <li class="nav-item"><a class="nav-link fw-semibold" href="">Mis Propiedades</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
+  
+{% endblock %}
+
+{% block content %}
+
+<form>
+    <div class="col-md-6">
+        <label for="exampleInputEmail1">Nombre</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">Cambiar nombre propiedad</small>
+    </div>
+
+    <div class="col-md-6">
+       <label for="exampleInputPassword1">Ubicacion</label>
+       <input type="ubicacion" class="form-control" id="exampleInputPassword1" placeholder="Ubicacion">
+    </div>
+
+     <div class="col-md-6">
+       <label for="exampleInputPassword1">Descripcion</label>
+       <input type="ubicacion" class="form-control" id="exampleInputPassword1" placeholder="Ubicacion">
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Imagen</label>
+         {{ form.imagen }}
+         {% if form.imagen.errors %}<div class="invalid-feedback d-block">{{ form.imagen.errors.0 }}</div>{% endif %}
+        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+
+    <div class="d-flex gap-2 mt-2">
+      <button class="btn btn-dark" type="submit">Guardar cambios</button>
+      <button class="btn btn-dark" type="submit">Dejar borrador</button>
+      <a class="btn btn-outline-dark" href="">Cancelar</a>
+
+      {% if object %}
+      <form method="post" action="" class="ms-auto"
+            onsubmit="return confirm('¿Seguro que deseas borrar?');">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Borrar</button>
+      </form>
+      {% endif %}
+    </div>
+</form>
+
+
+
+{% endblock %}

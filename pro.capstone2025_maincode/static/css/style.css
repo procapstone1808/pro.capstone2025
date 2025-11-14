@@ -1,0 +1,228 @@
+
+/* === ESTRUCTURA (Ajusta todo el contenido hacia el fondo) === */
+
+html, body{
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+}
+
+footer{
+  margin-top: auto;
+  background-color: #ffffff;
+}
+
+main { 
+  flex: 1 0 auto; 
+}
+
+
+/* === fondo === */
+#fondo{
+  background-color:#FAF7F2 ;
+  min-height: 100%;
+  display: flex; 
+  flex-direction: column;
+
+}
+
+
+/* === NAVBAR === */
+
+.navbar {
+  background-color: #ffffff;
+}
+/* === Navbar logo === */
+#navbar .navbar-brand img { 
+  height: 56px; 
+}
+
+
+/* === BODY INDEX/Register/Login === */
+
+
+/* ===== CARRUSEL como fondo (casi pantalla completa) ===== */
+
+:root { 
+  --hero-h: 85vh;
+  --hero-top: 18vh;        
+  --hero-maxw: 1200px;     
+
+}  
+
+
+
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden; 
+  background: #f7f2e8; 
+}
+
+.home-hero {               /* contenedor del hero */
+  position: relative;
+  min-height: var(--hero-h);
+}
+
+/* Carrusel ocupa toda la altura del hero */
+.hero-carousel {
+  width: min(var(--hero-maxw), 92vw); 
+  height: var(--hero-h);
+  margin: 0 auto;                     
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+
+
+
+}
+.hero-carousel .carousel-inner,
+.hero-carousel .carousel-item { height: 100%; }
+.hero-carousel .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       
+  display: block;
+  border-radius: 0;
+}
+
+/* Card Bienvenida index */
+.home-hero .hero-welcome {
+  position: absolute;
+  left: 50%;
+  top: var(--hero-top);    
+  transform: translateX(-50%);
+  z-index: 2;
+
+  width: min(900px, 92%);
+  border-radius: 18px;
+  background: #fff;
+}
+
+@media (max-width: 576px) {
+  :root { --hero-h: 56vh; }
+  .home-hero .hero-welcome { top: 6vh; width: 94%; }
+}
+
+/* Card Propiedades */
+.hero-propiedades .hero-welcome {
+  display: block;
+  margin: 2rem auto;        /* lo centra y le da espacio arriba y abajo */
+  width: 80%;
+  max-width: 900px;
+  position: relative;       /* mantiene el flujo normal */
+  top: 0;                   /* evita desplazamiento absoluto */
+  z-index: 1;
+}
+
+.hero-propiedades .hero-welcome + .container {
+  margin-top: 2rem;         /* espacio extra entre el card y las secciones siguientes */
+}
+
+
+.hero-welcome {
+  display: block;
+  margin: 2rem auto;        /* lo centra y le da espacio arriba y abajo */
+  width: 80%;
+  max-width: 900px;
+  position: relative;       /* mantiene el flujo normal */
+  top: 0;                   /* evita desplazamiento absoluto */
+  z-index: 1;
+}
+
+.hero-welcome + .container {
+  margin-top: 2rem;         /* espacio extra entre el card y las secciones siguientes */
+}
+
+
+/*PARTE DE PROPIEDADES*/
+/* HERO con imagen de fondo */
+  .hero-propiedades{
+    /* ← cambia la imagen a la tuya */
+    background:
+      linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)),
+      url("{% static 'img/registrado.jpg' %}") center/cover no-repeat; /*revisar imagen*/
+    padding: 48px 0 56px;
+  }
+
+  /* Tarjetas “vidrio” gris */
+  .glass-card{
+    background: rgba(224,224,224,.92);
+    border-radius: 28px;
+    box-shadow: 0 14px 36px rgba(0,0,0,.12);
+  }
+
+  /* Botones y cabecera “píldora” */
+  .pill-btn{
+    display:block; width:100%;
+    border:0; border-radius:9999px;
+    padding:12px 16px; font-weight:700;
+    background:#a9a8f2; color:#fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,.08);
+  }
+  .pill-btn:hover{ filter: brightness(.96); }
+
+  .pill-title{
+    display:block; width:100%;
+    text-align:center; font-weight:700;
+    border-radius:9999px; padding:12px 16px;
+    background:#a9a8f2; color:#fff;
+  }
+
+  /* Inputs redondeados */
+  .pill-input{
+    width:100%;
+    border-radius:9999px; border:0;
+    padding:12px 16px; background:#fff;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+  }
+  .pill-input:focus{
+    outline: none;
+    box-shadow: inset 0 0 0 2px rgba(82,91,255,.45);
+  }
+
+  /* Ajustes responsivos */
+  @media (max-width: 991px){
+    .hero-propiedades{ padding: 32px 0 40px; }
+  }
+
+  /*PARTE DE PROPIEDADES*/
+
+/* ===== Registro ===== */
+.auth-hero{
+  min-height: 68vh;                
+  display: flex;
+  align-items: flex-start;          
+  padding-top: 48px;                
+  padding-bottom: 24px;
+}
+
+.register-card{
+  width: min(700px, 95vw);          
+  border-radius: 18px;
+}
+
+.register-card .form-control,
+.register-card .form-select{
+  height: 44px;
+}
+
+.register-card .btn{
+  height: 44px;
+}
+
+/* ===== Login ===== */
+
+.auth-card{
+  width: min(520px, 95vw); 
+  border-radius: 18px;
+}
+
+.auth-card .form-control{ height: 44px; }
+.auth-card .btn{ height: 44px; }
