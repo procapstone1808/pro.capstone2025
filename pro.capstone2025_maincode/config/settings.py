@@ -80,6 +80,7 @@ DATABASES = {
         'USER': 'stockpro',
         'PASSWORD': 'stockpro_1808',
        
+   
     }
 }
 
