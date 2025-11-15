@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import transaction
-from .forms import RegistroForm, LoginForm
-from .models import SpUsuario
+from django.urls import reverse_lazy
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import RegistroForm, LoginForm, PropiedadForm
+from .models import SpUsuario, Propiedad
 
 # Create your views here.
 
@@ -86,7 +89,22 @@ def propiedad_view(request):
     return render(request, "core/propiedadcrud.html")
 
 def propiedadform_view(request):
-    return render(request, "core/propiedadform.html")
+    if request.method == 'POST':
+        form = PropiedadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Propiedad creada exitosamente.")
+            return redirect('core:misprop')
+    else:
+        form = PropiedadForm()
+    return render(request, "core/propiedadform.html", {'form': form})
+
+
+class PropiedadUpdateView(LoginRequiredMixin, UpdateView):
+    model = Propiedad
+    form_class = PropiedadForm
+    template_name = 'core/propiedadform.html'
+    success_url = reverse_lazy('core:misprop')
 
 def editarform_view(request):
     return render(request, "core/editar-propform.html")
