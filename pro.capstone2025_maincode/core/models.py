@@ -26,7 +26,7 @@ class SpUsuario(models.Model):
 class Propiedad(models.Model):
     ESTADOS = (
         ("published", "Publicado"),
-        ("draft", "Borrador"),
+        #("draft", "Borrador"),
     )
 
     nombre = models.CharField(max_length=120, db_column='NOMBRE')
