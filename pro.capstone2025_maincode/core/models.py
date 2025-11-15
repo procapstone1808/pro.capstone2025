@@ -1,10 +1,5 @@
 from django.db import models
-from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import UpdateView
-#from .models import Propiedad
-#from .forms import PropiedadForm
-
+from django.urls import reverse
 
 
 class SpUsuario(models.Model):
@@ -21,16 +16,33 @@ class SpUsuario(models.Model):
     pass_field = models.CharField(max_length=30, db_column='PASS')
 
     class Meta:
-        managed = False          
-        db_table = 'SP_USUARIO'  
+        managed = False
+        db_table = 'SP_USUARIO'
 
     def __str__(self):
         return f"{self.nombre} ({self.rut})"
-    
 
-class PropiedadUpdateView (LoginRequiredMixin, UpdateView):
-    #model = Propiedad
-    #form_class = PropiedadForm
-    template_name = 'core/propiedadform.html'
-    success_url = reverse_lazy("core:propiedad_lista")
+
+class Propiedad(models.Model):
+    ESTADOS = (
+        ("published", "Publicado"),
+        ("draft", "Borrador"),
+    )
+
+    nombre = models.CharField(max_length=120, db_column='NOMBRE')
+    ubicacion = models.CharField(max_length=200, db_column='UBICACION')
+    descripcion = models.TextField(blank=True, db_column='DESCRIPCION')
+    imagen = models.ImageField(upload_to='propiedades/', blank=True, null=True)
+    activo = models.CharField(max_length=10, choices=ESTADOS, default="published")
+    creado = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'PROPIEDAD'
+
+    def __str__(self):
+        return self.nombre
+
+    def get_absolute_url(self):
+        return reverse("propiedad_detail", args=[self.pk])
+
 
