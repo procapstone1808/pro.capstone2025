@@ -141,7 +141,75 @@ class PropiedadForm(forms.ModelForm):
         return data
         
 
-        
+# Formulario para editar propiedades (con validación que no marca duplicado el propio nombre)
+class PropiedadEditForm(forms.ModelForm):
+    class Meta:
+        model = Propiedad
+        fields = ['nombre', 'ubicacion', 'descripcion', 'imagen', 'activo']
+        widgets = {
+            "nombre": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "nombre propiedad"
+            }),
+            "ubicacion": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "ingresar ubicacion"
+            }),
+            "descripcion": forms.Textarea(attrs={
+                "class": "form-control",
+                "placeholder": "descripcion propiedad",
+                "rows": 4
+            }),
+            "imagen": forms.ClearableFileInput(attrs={"class": "form-control"}),
+            "activo": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        }
+
+        error_messages = {
+            "nombre": {
+                "required": "El nombre de la propiedad es obligatorio.",
+                "max_length": "El maximo es de 100 caracteres."
+            }
+        }
+
+    def clean_nombre(self):
+        nombre = self.cleaned_data.get('nombre', '')
+        if len(nombre) < 5:
+            raise ValidationError("El nombre debe tener al menos 5 caracteres.")
+        # Al editar, excluir la instancia actual de la búsqueda de duplicados
+        qs = Propiedad.objects.filter(nombre__iexact=nombre)
+        if self.instance and self.instance.pk:
+            qs = qs.exclude(pk=self.instance.pk)
+        if qs.exists():
+            raise ValidationError("Ya existe una propiedad con este nombre.")
+        return nombre
+
+    def clean_ubicacion(self):
+        ubicacion = self.cleaned_data.get('ubicacion', '')
+        if len(ubicacion) < 5:
+            raise ValidationError('La ubicacion es demasiado corta')
+        return ubicacion
+
+    def clean_descripcion(self):
+        descripcion = self.cleaned_data.get('descripcion', '')
+        if descripcion and len(descripcion) < 5:
+            raise ValidationError('La descripcion es demasiado corta')
+        return descripcion
+
+    def clean_imagen(self):
+        imagen = self.cleaned_data.get('imagen')
+        if imagen and hasattr(imagen, 'size'):
+            if imagen.size > 5 * 1024 * 1024:  # 5MB
+                raise ValidationError("El tamaño de la imagen no debe exceder los 5MB.")
+        return imagen
+
+    def clean(self):
+        data = super().clean()
+        nombre = data.get('nombre', '')
+        ubicacion = data.get('ubicacion', '')
+        if nombre and ubicacion and nombre.lower() == ubicacion.lower():
+            self.add_error('ubicacion', "La ubicación no puede ser igual al nombre de la propiedad.")
+        return data
+
 
 
 

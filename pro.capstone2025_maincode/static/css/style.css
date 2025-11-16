@@ -226,3 +226,69 @@ main {
 
 .auth-card .form-control{ height: 44px; }
 .auth-card .btn{ height: 44px; }
+
+/* ===== Formularios de Propiedades ===== */
+.sp-panel {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+.sp-panel h5 {
+  color: #333;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.sp-panel .form-control,
+.sp-panel .form-select,
+.sp-panel .form-check-input {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  height: auto;
+  min-height: 40px;
+}
+
+.sp-panel .form-control:focus,
+.sp-panel .form-select:focus {
+  border-color: #a9a8f2;
+  box-shadow: 0 0 0 0.2rem rgba(169, 168, 242, 0.25);
+}
+
+.sp-panel textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.sp-panel .form-label {
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.sp-panel .invalid-feedback {
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.sp-panel .form-check {
+  padding-left: 0;
+}
+
+.sp-panel .form-check-input {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.sp-panel .form-check-label {
+  cursor: pointer;
+  user-select: none;
+}
+
