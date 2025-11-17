@@ -121,13 +121,15 @@ class PropiedadForm(forms.ModelForm):
 
     def clean_descripcion(self):
         descripcion = self.cleaned_data.get('descripcion', '')
-        if descripcion and len(descripcion) < 5:
-            raise ValidationError('La descripcion es demasiado corta')
+        if not descripcion or len(descripcion.strip()) < 5:
+            raise ValidationError('La descripcion es obligatoria y debe tener al menos 5 caracteres')
         return descripcion
 
     def clean_imagen(self):
         imagen = self.cleaned_data.get('imagen')
-        if imagen and hasattr(imagen, 'size'):
+        if not imagen:
+            raise ValidationError('Se requiere una imagen para la propiedad.')
+        if hasattr(imagen, 'size'):
             if imagen.size > 5 * 1024 * 1024:  # 5MB
                 raise ValidationError("El tamaño de la imagen no debe exceder los 5MB.")
         return imagen
@@ -191,8 +193,8 @@ class PropiedadEditForm(forms.ModelForm):
 
     def clean_descripcion(self):
         descripcion = self.cleaned_data.get('descripcion', '')
-        if descripcion and len(descripcion) < 5:
-            raise ValidationError('La descripcion es demasiado corta')
+        if descripcion and len(descripcion.strip()) < 5:
+            raise ValidationError('La descripcion debe tener al menos 5 caracteres si se proporciona')
         return descripcion
 
     def clean_imagen(self):

@@ -16,7 +16,7 @@
   {% if object %}
   <form id="propiedad-form" method="post" action="{% url 'core:propiedad_editar' object.pk %}" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
   {% else %}
-  <form id="propiedad-form" method="post" action="{% url 'core:propiedadform_usreg' %}" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+  <form id="propiedad-form" method="post" action="{% url 'core:usregistrado' %}" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
   {% endif %}
 
         {% csrf_token %}

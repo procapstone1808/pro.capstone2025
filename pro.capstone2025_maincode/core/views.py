@@ -152,7 +152,15 @@ class EditarPropiedadView(LoginRequiredMixin, UpdateView):
     
 
 def misprop_view(request):
-    return render(request, "core/misprop.html")
+    propiedades = Propiedad.objects.all()
+    return render(request, "core/misprop.html", {'propiedades': propiedades})
 
 def usereg_view(request):
+        
     return render(request, "core/usregistrado.html")
+
+def editado_view(request):
+    return render(request, "core/editado.html")
+
+def propingresada_view(request):
+    return render(request, "core/propingresada.html")
