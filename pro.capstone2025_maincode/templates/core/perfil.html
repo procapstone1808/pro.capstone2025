@@ -2,35 +2,122 @@
 {% load static %}
 
 {% block nav_items %}
-  <li class="nav-item"><a class="nav-link fw-semibold" href="">Mis Propiedades</a></li>
-  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
-  
+  <li class="nav-item"><a class="nav-link" href="">Inicio</a></li>
+  <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Mi perfil</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url 'core:ayuda' %}">Ayuda</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url 'core:nosotros' %}">Nosotros</a></li>
 {% endblock %}
 
 {% block content %}
-<section class="hero-propiedades">
-    <div class="container">
-        <div class="row g-4 justify-content-center">
-            <!-- Columna izquierda: Acciones -->
-            <div class="col-12 col-lg-5">
-                <div class="glass-card p-4 p-md-5">
-                    <div class="vstack gap-3">
-                        <button class="pill-btn" type="button">Ingresar propiedad</button>
-                        <button class="pill-btn" type="button">Editar propiedad</button>
-                        <button class="pill-btn" type="button">Eliminar propiedad</button>
-                        <button class="pill-btn" type="button">Cambiar estado de propiedad</button>
-                    </div>
-               </div>
+<div class="container my-1">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="sp-panel shadow-sm p-4">
+        <div class="row g-4 align-items-center">
+
+          <!-- Columna izquierda: avatar + info corta -->
+          <div class="col-md-4 text-center border-end">
+            <!-- Avatar simple con iniciales -->
+            <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto"
+                 style="width: 140px; height: 140px;">
+              <span class="fs-1 text-uppercase">
+                {{ user.first_name|default:user.username|slice:":1" }}{{ user.last_name|slice:":1" }}
+              </span>
             </div>
 
-            <!-- Columna derecha: Formulario -->
+            <h5 class="mt-3 mb-0">
+              {{ user.get_full_name|default:user.username }}
+            </h5>
+             <img class="card-img-top" src="{% static 'img/fotoperfil.png' %}" alt="propiedad">
 
-           
+            <p class="text-muted mb-2">@{{ user.username }}</p>
+
+
+            <p class="small text-muted mb-3">
+              {{ user.email|default:"user@gmail.com" }}
+            </p>
+
+
+            <!-- Botones de acción (ajusta las URLs según tus vistas) -->
+            <a href="" class="btn btn-primary btn-sm d-block mb-2">
+              Editar perfil
+            </a>
+            <a href="" class="btn btn-outline-secondary btn-sm d-block">
+              Cambiar contraseña
+            </a>
+          </div>
+
+          <!-- Columna derecha: detalle de perfil -->
+          <div class="col-md-8">
+            <h5 class="mb-3">Información de la cuenta</h5>
+
+            <dl class="row mb-3">
+              <dt class="col-sm-4">Nombre completo</dt>
+              <dd class="col-sm-8">
+                {{ user.get_full_name|default:"Sin definir" }}
+              </dd>
+
+              <dt class="col-sm-4">Usuario</dt>
+              <dd class="col-sm-8">
+                {{ user.username }}
+              </dd>
+
+              <dt class="col-sm-4">Correo electrónico</dt>
+              <dd class="col-sm-8">
+                {{ user.email|default:"Sin definir" }}
+              </dd>
+
+              <dt class="col-sm-4">Fecha de registro</dt>
+              <dd class="col-sm-8">
+                {{ user.date_joined|date:"d/m/Y H:i" }}
+              </dd>
+
+              <dt class="col-sm-4">Último acceso</dt>
+              <dd class="col-sm-8">
+                {{ user.last_login|date:"d/m/Y H:i" }}
+              </dd>
+            </dl>
+
+            <hr>
+
+            <h6 class="mb-3">Datos de contacto</h6>
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label class="form-label mb-0 small text-muted">Teléfono</label>
+                <div class="fw-semibold">
+                  {{ user.perfil.telefono|default:"No registrado" }}
                 </div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label mb-0 small text-muted">Dirección</label>
+                <div class="fw-semibold">
+                  {{ user.perfil.direccion|default:"No registrada" }}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label mb-0 small text-muted">Ciudad</label>
+                <div class="fw-semibold">
+                  {{ user.perfil.ciudad|default:"Santiago" }}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label mb-0 small text-muted">País</label>
+                <div class="fw-semibold">
+                  {{ user.perfil.pais|default:"Chile" }}
+                </div>
+              </div>
             </div>
-        </div> <!-- /row -->
-    </div>  <!-- /container -->
-</section>
+
+            <hr>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}

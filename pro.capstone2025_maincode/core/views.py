@@ -166,9 +166,15 @@ def usereg_view(request):
 def editado_view(request):
     return render(request, "core/editado.html")
 
-def terrenos_view(request):
+def terrenoslistos_view(request):
     return render(request, "core/terrenoslistos.html")
 
 def perfil_view(request):
-    request.session.get('sp_user_id')
-    return render(request, "core/perfil.html")
+    sp_user = None
+    sp_user_id = request.session.get('sp_user_id')
+    if sp_user_id:
+       sp_user = SpUsuario.objects.filter(usuario_id=sp_user_id).first()
+
+    return render(request, "core/perfil.html", {'sp_user': sp_user})
+
+
