@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_items %}
+  <li class="nav-item"><a class="nav-link fw-semibold" href="">Mis Propiedades</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
+  
+{% endblock %}
+
+{% block content %}
+<section class="hero-propiedades">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            <!-- Columna izquierda: Acciones -->
+            <div class="col-12 col-lg-5">
+                <div class="glass-card p-4 p-md-5">
+                    <div class="vstack gap-3">
+                        <button class="pill-btn" type="button">Ingresar propiedad</button>
+                        <button class="pill-btn" type="button">Editar propiedad</button>
+                        <button class="pill-btn" type="button">Eliminar propiedad</button>
+                        <button class="pill-btn" type="button">Cambiar estado de propiedad</button>
+                    </div>
+               </div>
+            </div>
+
+            <!-- Columna derecha: Formulario -->
+
+           
+                </div>
+            </div>
+        </div> <!-- /row -->
+    </div>  <!-- /container -->
+</section>
+
+
+{% endblock %}

@@ -92,7 +92,7 @@ def gestordocumentos_view(request):
 def propiedad_view(request):
     return render(request, "core/propiedadcrud.html")
 
-def propiedadform_view(request):
+def createform_view(request):
     if request.method == 'POST':
         form = PropiedadForm(request.POST, request.FILES)
         if form.is_valid():
@@ -101,7 +101,7 @@ def propiedadform_view(request):
             return redirect('core:misprop')
     else:
         form = PropiedadForm()
-    return render(request, "core/propiedadform.html", {'form': form})
+    return render(request, "core/createform.html", {'form': form})
 
 
 # Nueva vista para crear propiedad y redirigir a usregistrado (sin afectar propiedadform_view)
@@ -143,14 +143,14 @@ def editarform_view(request, pk=None):
     else:
         form = PropiedadEditForm(instance=prop)
     #form = PropiedadEditForm()  # o PropiedadForm()
-    return render(request, "core/editar-propform.html", {'form': form, 'propiedad': prop})
+    return render(request, "core/editarform.html", {'form': form, 'propiedad': prop})
 
 
 # Vista para editar propiedad con validación completa
 class EditarPropiedadView(LoginRequiredMixin, UpdateView):
     model = Propiedad
     form_class = PropiedadEditForm
-    template_name = 'core/editar-propform.html'
+    template_name = 'core/editarform.html'
     success_url = reverse_lazy('core:misprop')
 
     
@@ -166,5 +166,9 @@ def usereg_view(request):
 def editado_view(request):
     return render(request, "core/editado.html")
 
-def propingresada_view(request):
-    return render(request, "core/propingresada.html")
+def terrenos_view(request):
+    return render(request, "core/terrenoslistos.html")
+
+def perfil_view(request):
+    request.session.get('sp_user_id')
+    return render(request, "core/perfil.html")
