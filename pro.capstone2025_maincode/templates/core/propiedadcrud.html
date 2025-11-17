@@ -55,10 +55,21 @@
  <div class="card" style="width: 25rem;">
   <img class="card-img-top" src="{% static 'img/ver-prop.jpeg' %}" alt="ver">
   <div class="card-body">
-    <p class="card-text">Ver Mis propiedades</p>
+    <p class="card-text">Ver Propiedades ingresadas</p>
+    <button class="btn btn-primary" type="button"><a href="{% url 'core:propingresada' %}">Verificar</a></button>
+  </div>
+ </div>
+
+
+ <div class="card" style="width: 25rem;">
+  <img class="card-img-top" src="{% static 'img/nuevaprop.jpg' %}" alt="ver">
+  <div class="card-body">
+    <p class="card-text">Nuevas propiedades</p>
     <button class="btn btn-primary" type="button"><a href="{% url 'core:misprop' %}">Verificar</a></button>
   </div>
  </div>
+
+
 
 </div>
 

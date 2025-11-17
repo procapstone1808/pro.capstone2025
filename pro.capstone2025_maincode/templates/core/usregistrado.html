@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- Bloque Navbar items -->
+
+{% block nav_items %}
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:registro' %}">Registrarse</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:login' %}">Login</a></li>
+  
+{% endblock %}
+
+<!-- Contenido Pagina -->
+
+{% block content %}
+<section class="">
+
+ 
+  <!-- CARD sobre el carrusel -->
+  <div class="hero-welcome card shadow-lg">
+    <div class="card-body p-4 p-md-5 text-center">
+      <h2 class="mb-1">La Propiedad se ha creado con exito</h2>
+    </div>
+  </div>
+  <center><button class="btn btn-dark" type="submit"><a href="{% url 'core:misprop' %}">Continuar</a></button></center>
+
+</section>
+{% endblock %}

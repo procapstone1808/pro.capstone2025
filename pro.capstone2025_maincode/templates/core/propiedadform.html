@@ -13,47 +13,63 @@
 <div class="sp-panel">
     <h5 class="mb-3">{% if object %}Editar{% else %}Crear{% endif %} propiedad</h5>
 
-  <form method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
-
+  {% if object %}
+  <form id="propiedad-form" method="post" action="{% url 'core:propiedad_editar' object.pk %}" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+  {% else %}
+  <form id="propiedad-form" method="post" action="{% url 'core:usregistrado' %}" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+  {% endif %}
 
         {% csrf_token %}
 
         {% if form.non_field_errors %}
-        <div class="col-12 alert alert-danger">{{ form.non_field_errors }}</div>
+        <div class="col-12 alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Error:</strong> {{ form.non_field_errors }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="col-12 alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
         {% endif %}
 
         <div class="col-md-6">
             <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
             {{ form.nombre }}
-            {% if form.nombre.errors %}<div class="invalid-feedback d-block">{{ form.nombre.errors.0 }}</div>{% endif %}
+            {% if form.nombre.errors %}<div class="invalid-feedback d-block text-danger">{{ form.nombre.errors.0 }}</div>{% endif %}
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Ubicación</label>
+          <label for="{{ form.ubicacion.id_for_label }}" class="form-label">Ubicación</label>
           {{ form.ubicacion }}
-          {% if form.ubicacion.errors %}<div class="invalid-feedback d-block">{{ form.ubicacion.errors.0 }}</div>{% endif %}
+          {% if form.ubicacion.errors %}<div class="invalid-feedback d-block text-danger">{{ form.ubicacion.errors.0 }}</div>{% endif %}
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Descripción</label>
+          <label for="{{ form.descripcion.id_for_label }}" class="form-label">Descripción</label>
           {{ form.descripcion }}
-          {% if form.descripcion.errors %}<div class="invalid-feedback d-block">{{ form.descripcion.errors.0 }}</div>{% endif %}
+          {% if form.descripcion.errors %}<div class="invalid-feedback d-block text-danger">{{ form.descripcion.errors.0 }}</div>{% endif %}
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Imagen</label>
+          <label for="{{ form.imagen.id_for_label }}" class="form-label">Imagen</label>
           {{ form.imagen }}
-          {% if form.imagen.errors %}<div class="invalid-feedback d-block">{{ form.imagen.errors.0 }}</div>{% endif %}
+          {% if form.imagen.errors %}<div class="invalid-feedback d-block text-danger">{{ form.imagen.errors.0 }}</div>{% endif %}
         </div>
+
     <div class="col-md-6 d-flex align-items-center">
       <div class="form-check mt-3">
-        {{ form.activo }} <label class="form-check-label ms-1">Activo</label>
+        {{ form.activo }} <label for="{{ form.activo.id_for_label }}" class="form-check-label ms-1">Activo</label>
       </div>
     </div>
 
     <div class="d-flex gap-2 mt-2">
       <button class="btn btn-dark" type="submit">Guardar</button>
-      <a class="btn btn-outline-dark" href="">Cancelar</a>
+      <a class="btn btn-outline-dark" href="{% url 'core:propiedadcrud' %}">Cancelar</a>
 
       {% if object %}
       <form method="post" action="" class="ms-auto"
@@ -63,6 +79,33 @@
       </form>
       {% endif %}
     </div>
+
+    <script>
+    (function() {
+      var form = document.getElementById('propiedad-form');
+      if (!form) return;
+
+      form.addEventListener('submit', function(e) {
+        // HTML5 validation check
+        if (!form.checkValidity()) {
+          e.preventDefault();
+          e.stopPropagation();
+          form.classList.add('was-validated');
+          return false;
+        }
+
+        if (!confirm('¿Deseas crear la propiedad?')) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+
+        // Si el usuario confirma, el formulario se envía normalmente
+        // La vista en el servidor se encargará de redirigir a usregistrado
+        return true;
+      }, false);
+    })();
+    </script>
   </form>
 </div>
 

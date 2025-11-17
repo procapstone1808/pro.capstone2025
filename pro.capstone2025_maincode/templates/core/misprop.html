@@ -23,55 +23,25 @@
 
 <div class="cards-wrap">
 
+{% for propiedad in propiedades %}
  <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/propiedad1.jpg' %}" alt="propiedad">
+  {% if propiedad.imagen %}
+  <img class="card-img-top" src="{{ propiedad.imagen.url }}" alt="{{ propiedad.nombre }}">
+  {% else %}
+  <img class="card-img-top" src="{% static 'img/propiedad1.jpg' %}" alt="placeholder">
+  {% endif %}
   <div class="card-body">
-    <p class="card-text">Casa Subsidio en Viña del Mar</p>
-    <button class="btn btn-primary" type="button"><a href="{% url 'core:propiedadform' %}">Ingresar</a></button>
+    <p class="card-text"><strong>{{ propiedad.nombre }}</strong></p>
+    <p class="card-text"><small>{{ propiedad.ubicacion }}</small></p>
+    <p class="card-text"><small>{{ propiedad.descripcion|truncatewords:15 }}</small></p>
+    <button class="btn btn-primary" type="button"><a href="{% url 'core:propiedad_editar' propiedad.pk %}">Editar</a></button>
   </div>
  </div>
-
- <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/propiedad2.jpg' %}" alt="editar">
-  <div class="card-body">
-    <p class="card-text">Casa en condominio 'El Magnolio' Peñalolen</p>
-    <button class="btn btn-primary" type="button"><a href="">Editar</a></button>
-  </div>
+{% empty %}
+ <div style="padding: 20px;">
+  <p>No tienes propiedades registradas. <a href="{% url 'core:propiedadform' %}">Crear una nueva</a></p>
  </div>
-
- <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/propiedad3.jpg' %}" alt="ver">
-  <div class="card-body">
-    <p class="card-text">Casa Sector Oriente Santiago</p>
-    <button class="btn btn-primary" type="button">Verificar</button>
-  </div>
- </div>
-
- <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/propiedad4.jpg' %}" alt="ver">
-  <div class="card-body">
-    <p class="card-text">Propiedad con Terraza Santiago</p>
-    <button class="btn btn-primary" type="button">Verificar</button>
-  </div>
- </div>
-
- <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/propiedad5.jpg' %}" alt="ver">
-  <div class="card-body">
-    <p class="card-text">Propiedad 12 Valparaiso</p>
-    <button class="btn btn-primary" type="button">Verificar</button>
-  </div>
- </div>
-
- <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/propiedad6.jpg' %}" alt="ver">
-  <div class="card-body">
-    <p class="card-text">Condominio Lomas La Dehesa</p>
-    <button class="btn btn-primary" type="button">Verificar</button>
-  </div>
- </div>
-
-
+{% endfor %}
 
 </div>
 
