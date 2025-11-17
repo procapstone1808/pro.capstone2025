@@ -25,7 +25,8 @@ class RegistroForm(forms.ModelForm):
 # Validar Login
 class LoginForm(forms.Form):
     rut = forms.CharField(
-        max_length=12, label='RUT',
+        max_length=12, 
+        label='RUT',
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': '12.345.678-9',
@@ -33,7 +34,8 @@ class LoginForm(forms.Form):
         })
     )
     email = forms.EmailField(
-        max_length=120, label='Email',
+        max_length=120, 
+        label='Email',
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
             'placeholder': 'correo@dominio.cl',
