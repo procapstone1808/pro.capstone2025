@@ -23,26 +23,107 @@ class SpUsuario(models.Model):
         return f"{self.nombre} ({self.rut})"
 
 
-class Propiedad(models.Model):
-    ESTADOS = (
-        ("published", "Publicado"),
-        #("draft", "Borrador"),
+
+
+class SpPropiedad(models.Model):
+    propiedad_id = models.AutoField(
+        db_column='PROPIEDAD_ID',
+        primary_key=True,
+    )
+    rol_sii = models.CharField(
+        max_length=20,
+        db_column='ROL_SII',
+    )
+    direccion = models.CharField(
+        max_length=200,
+        db_column='DIRECCION',
+    )
+    comuna = models.CharField(
+        max_length=80,
+        db_column='COMUNA',
+    )
+    region = models.CharField(
+        max_length=80,
+        db_column='REGION',
     )
 
-    nombre = models.CharField(max_length=120, db_column='NOMBRE')
-    ubicacion = models.CharField(max_length=200, db_column='UBICACION')
-    descripcion = models.TextField(blank=True, db_column='DESCRIPCION')
-    imagen = models.ImageField(upload_to='propiedades/', blank=True, null=True)
-    activo = models.CharField(max_length=10, choices=ESTADOS, default="published")
-    creado = models.DateTimeField(auto_now_add=True)
+    # TIPO: CASA / DEPTO / SITIO
+    TIPO_CHOICES = [
+        ('CASA', 'Casa'),
+        ('DEPTO', 'Departamento'),
+        ('SITIO', 'Sitio'),
+    ]
+    tipo = models.CharField(
+        max_length=20,
+        db_column='TIPO',
+        choices=TIPO_CHOICES,
+    )
+
+    sup_construida_m2 = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        db_column='SUP_CONSTRUIDA_M2',
+        blank=True, null=True,
+    )
+    sup_terreno_m2 = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        db_column='SUP_TERRENO_M2',
+        blank=True, null=True,
+    )
+    dormitorios = models.IntegerField(
+        db_column='DORMITORIOS',
+        blank=True, null=True,
+    )
+    banos = models.IntegerField(
+        db_column='BANOS',
+        blank=True, null=True,
+    )
+    estacionamientos = models.IntegerField(
+        db_column='ESTACIONAMIENTOS',
+        blank=True, null=True,
+    )
+
+    # ESTADO: DISPONIBLE / VENDIDA / ARRENDADA  (por si después lo quieres en el form)
+    ESTADO_CHOICES = [
+        ('DISPONIBLE', 'Disponible'),
+        ('VENDIDA', 'Vendida'),
+        ('ARRENDADA', 'Arrendada'),
+    ]
+    estado = models.CharField(
+        max_length=20,
+        db_column='ESTADO',
+        default='DISPONIBLE',
+        choices=ESTADO_CHOICES,
+        blank=True, null=True,
+    )
+
+    precio_ref_clp = models.DecimalField(
+        max_digits=14,
+        decimal_places=2,
+        db_column='PRECIO_REF_CLP',
+        blank=True, null=True,
+    )
+
+    # IMAGEN: Oracle guarda VARCHAR2(255) con la ruta; Django maneja el archivo
+    imagen = models.ImageField(
+        upload_to='propiedades/',
+        db_column='IMAGEN',
+        blank=True, null=True,
+    )
 
     class Meta:
-        db_table = 'PROPIEDAD'
+        managed = False
+        db_table = 'SP_PROPIEDAD'
 
     def __str__(self):
-        return self.nombre
+        return f"{self.rol_sii} - {self.direccion}"
 
-    def get_absolute_url(self):
-        return reverse("propiedad_detail", args=[self.pk])
+
+
+
+
+
+
 
 

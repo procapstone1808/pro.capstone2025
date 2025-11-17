@@ -1,15 +1,13 @@
 import re
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import SpUsuario, Propiedad
+from .models import SpUsuario, SpPropiedad
 
 
 class RegistroForm(forms.ModelForm):
     class Meta:
         model = SpUsuario
-        # Campos que el usuario SI llena en el registro:
         fields = ['rut', 'nombre', 'email', 'telefono', 'rol', 'pass_field']
-
         labels = {
             'rut': 'RUT',
             'nombre': 'Nombre',
@@ -19,7 +17,15 @@ class RegistroForm(forms.ModelForm):
             'pass_field': 'Contraseña',
         }
         widgets = {
-            'pass_field': forms.PasswordInput(),
+            'rut': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control'}),
+            'rol': forms.Select(choices=[
+                    ('ADMIN', 'Administrador'),
+                    ('CORREDOR', 'Corredor'),],
+                attrs={'class': 'form-control'}),
+            'pass_field': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
 
 # Validar Login
@@ -80,33 +86,133 @@ def clean_password(self):
 
 class PropiedadForm(forms.ModelForm):
     class Meta:
-        model = Propiedad
-        fields = ['nombre', 'ubicacion', 'descripcion', 'imagen', 'activo']
+        model = SpPropiedad
+
+        # Todos los campos que quieres pedir (menos propiedad_id)
+        fields = [
+            'rol_sii',
+            'direccion',
+            'comuna',
+            'region',
+            'tipo',
+            'sup_construida_m2',
+            'sup_terreno_m2',
+            'dormitorios',
+            'banos',
+            'estacionamientos',
+            'estado',
+            'precio_ref_clp',
+            'imagen',
+        ]
+
+        labels = {
+            'rol_sii': 'Rol SII',
+            'direccion': 'Dirección / Nombre propiedad',
+            'comuna': 'Comuna',
+            'region': 'Región',
+            'tipo': 'Tipo de propiedad',
+            'sup_construida_m2': 'Sup. construida (m²)',
+            'sup_terreno_m2': 'Sup. terreno (m²)',
+            'dormitorios': 'Dormitorios',
+            'banos': 'Baños',
+            'estacionamientos': 'Estacionamientos',
+            'estado': 'Estado',
+            'precio_ref_clp': 'Precio referencia (CLP)',
+            'imagen': 'Imagen',
+        }
+
         widgets = {
-            "nombre": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "nombre propiedad"
+            'rol_sii': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ej: 12345-6'
             }),
-            "ubicacion": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "ingresar ubicacion"
+            'direccion': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Nombre o dirección de la propiedad'
             }),
-            "descripcion": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "descripcion propiedad"
+            'comuna': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ingresa comuna'
             }),
-            "imagen": forms.ClearableFileInput(attrs={"class": "form-control"}),
-            "activo": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            'region': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Región'
+            }),
 
+            # SELECT para Casa / Depto / Sitio (usa choices del modelo)
+            'tipo': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+
+            'sup_construida_m2': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'step': '0.01',
+                'min': '0',
+            }),
+            'sup_terreno_m2': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'step': '0.01',
+                'min': '0',
+            }),
+            'dormitorios': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': '0',
+            }),
+            'banos': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': '0',
+            }),
+            'estacionamientos': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': '0',
+            }),
+
+            # SELECT para estado (usa choices del modelo: DISPONIBLE / VENDIDA / ARRENDADA)
+            'estado': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+
+            'precio_ref_clp': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'step': '1000',
+                'min': '0',
+            }),
+
+            'imagen': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+            }),
         }
 
-        error_messages = {
-            "nombre": {
-                "required": "El nombre de la propiedad es obligatorio.",
-                "max_length": "El maximo es de 100 caracteres."
-            }
-            
-        }
+
+    def clean_rol_sii(self):
+        """Validar que no exista otra propiedad con el mismo ROL SII."""
+        rol = self.cleaned_data.get('rol_sii')
+
+        if not rol:
+            return rol
+
+        rol = rol.strip()
+
+        qs = SpPropiedad.objects.filter(rol_sii=rol)
+
+        # Si estamos editando, excluir la misma instancia
+        if self.instance.pk:
+            qs = qs.exclude(pk=self.instance.pk)
+
+        if qs.exists():
+            raise ValidationError("Ya existe una propiedad registrada con este Rol SII.")
+
+        return rol
+
+
+
+
+
+
+
+
+
+
     def clean_nombre(self):
         nombre = self.cleaned_data.get('nombre', '')
         if len(nombre) < 5:
@@ -145,35 +251,7 @@ class PropiedadForm(forms.ModelForm):
         return data
         
 
-# Formulario para editar propiedades (con validación que no marca duplicado el propio nombre)
-class PropiedadEditForm(forms.ModelForm):
-    class Meta:
-        model = Propiedad
-        fields = ['nombre', 'ubicacion', 'descripcion', 'imagen', 'activo']
-        widgets = {
-            "nombre": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "nombre propiedad"
-            }),
-            "ubicacion": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "ingresar ubicacion"
-            }),
-            "descripcion": forms.Textarea(attrs={
-                "class": "form-control",
-                "placeholder": "descripcion propiedad",
-                "rows": 4
-            }),
-            "imagen": forms.ClearableFileInput(attrs={"class": "form-control"}),
-            "activo": forms.CheckboxInput(attrs={"class": "form-check-input"}),
-        }
 
-        error_messages = {
-            "nombre": {
-                "required": "El nombre de la propiedad es obligatorio.",
-                "max_length": "El maximo es de 100 caracteres."
-            }
-        }
 
     def clean_nombre(self):
         nombre = self.cleaned_data.get('nombre', '')
