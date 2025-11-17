@@ -21,6 +21,7 @@ urlpatterns = [
     path("usregistrado/", usereg_view, name="usregistrado"),
     path("editado/", editado_view, name="editado"),
     path("terrenoslistos/", terrenoslistos_view, name="terrenoslistos"),
+    path("perfil/", perfil_view, name="perfil"),
     
     #path("propiedades/<int:pk>/editar/", PropiedadUpdateView.as_view(), name="propiedad_editar"),
 
