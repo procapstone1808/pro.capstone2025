@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, login_view, registro_view, usereg_view, editado_view, ayuda_view, nosotros_view, propiedad_view, propingresada_view, salir, mainregistrado_view, gestordocumentos_view, propiedades_view, propiedadform_usreg_view, propiedadform_view, editarform_view, misprop_view, PropiedadUpdateView, EditarPropiedadView
+from .views import index, login_view, registro_view, usereg_view, editado_view, ayuda_view, nosotros_view, propiedad_view, terrenoslistos_view, salir, mainregistrado_view, gestordocumentos_view, propiedades_view, propiedadform_usreg_view, createform_view, editarform_view, misprop_view
 
 app_name = 'core'
 urlpatterns = [ 
@@ -13,15 +13,14 @@ urlpatterns = [
     path("propiedades/", propiedades_view, name="propiedades"),
     path("gestor-documentos/", gestordocumentos_view, name="gestor-documentos"),
     path("propiedadcrud/", propiedad_view, name="propiedadcrud"), 
-    path("propiedadform/", propiedadform_view, name="propiedadform"),
+    path("createform/", createform_view, name="createform"),
     path("propiedadform-usreg/", propiedadform_usreg_view, name="propiedadform_usreg"),
-    path("editar-propform/", editarform_view, name="editar-propform"),
-    path("propiedades/<int:pk>/editar/", PropiedadUpdateView.as_view(), name="propiedad_editar"),
-    path("propiedades/<int:pk>/editar-form/", EditarPropiedadView.as_view(), name="propiedad_editar_form"),
+     path("editarform/", editarform_view, name="editarform"),
+     
     path("misprop/", misprop_view, name="misprop"),
     path("usregistrado/", usereg_view, name="usregistrado"),
     path("editado/", editado_view, name="editado"),
-    path("propingresada/", propingresada_view, name="propingresada"),
+    path("terrenoslistos/", terrenoslistos_view, name="terrenoslistos"),
     
     #path("propiedades/<int:pk>/editar/", PropiedadUpdateView.as_view(), name="propiedad_editar"),
 
