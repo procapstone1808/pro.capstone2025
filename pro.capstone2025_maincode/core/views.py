@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import RegistroForm, LoginForm, PropiedadForm
-from .models import SpUsuario
+from .models import SpUsuario, SpPropiedad
 
 # Create your views here.
 
