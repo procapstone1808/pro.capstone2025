@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.db import transaction
+from django.db import transaction, IntegrityError 
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,20 +13,22 @@ def index(request):
     return render(request, "core/index.html")
 
 def registro_view(request):
-    form = RegistroForm(request.POST or None)
-
     if request.method == "POST":
+        form = RegistroForm(request.POST)
         if form.is_valid():
-            nuevo_usuario = form.save(commit=False)
-          
-            nuevo_usuario.is_active = 'Y'
-
-            #CORREGIR AUN NO FUNCIONA
-           
-            nuevo_usuario.save()  
-
-           
-            return redirect('core:index')  
+            try:
+                with transaction.atomic():
+                    nuevo_usuario = form.save(commit=False)
+                    nuevo_usuario.is_active = 'Y'
+                    # aquí podríamos hashear la contraseña más adelante
+                    nuevo_usuario.save()
+                messages.success(request, "Cuenta creada correctamente. Ahora puedes iniciar sesión.")
+                return redirect('core:login')
+            except IntegrityError:
+                # puede fallar por rut o email duplicado según la BD
+                form.add_error(None, "Ya existe un usuario con ese RUT o email.")
+    else:
+        form = RegistroForm()
 
     return render(request, 'core/registro.html', {'form': form})
 
@@ -36,18 +38,20 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+
             u = SpUsuario.objects.filter(
                 rut=cd['rut'].strip(),
                 email__iexact=cd['email'].strip(),
-                password=cd['password'],   
-                is_active='Y'
+                pass_field=cd['password'],   # IMPORTANTE: nombre correcto del campo
+                is_active='Y',
             ).first()
+
             if u:
                 request.session['sp_user_id'] = int(u.usuario_id)
                 request.session['sp_user_nombre'] = u.nombre
                 request.session['sp_user_rol'] = u.rol
                 messages.success(request, f"Bienvenido, {u.nombre}.")
-                return redirect('core:main_registrado')
+                return redirect('core:main-registrado')
             else:
                 form.add_error(None, 'Credenciales inválidas o cuenta inactiva.')
     else:
@@ -65,8 +69,8 @@ def main_registrado(request):
 
 def salir(request):
     request.session.flush()
-    messages.info(request, "Has cerrado sesión.")
-    return redirect('core:index')
+    messages.info(request, "Sesión cerrada correctamente.")
+    return redirect('core:login')
 
 
 def ayuda_view(request):
