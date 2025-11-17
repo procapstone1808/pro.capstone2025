@@ -1,47 +1,99 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Registro · StockPRO{% endblock %}
+{% block title %}Registrarse · StockPRO{% endblock %}
 
 {% block nav_items %}
-  <li class="nav-item"><a class="nav-link" href="{% url 'core:login' %}">Iniciar Sesión</a></li>
-  <li class="nav-item"><a class="nav-link" href="{% url 'core:ayuda' %}">Ayuda</a></li>
-  <li class="nav-item"><a class="nav-link" href="{% url 'core:nosotros' %}">Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'core:login' %}">Iniciar sesión</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'core:ayuda' %}">Ayuda</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'core:nosotros' %}">Nosotros</a></li>
 {% endblock %}
 
 {% block content %}
+
 <section class="auth-hero">
-  <div class="container d-flex justify-content-center">
-    <div class="card register-card shadow-lg">
-      <div class="card-body p-4 p-md-5">
+    <div class="container d-flex justify-content-center">
+        <div class="card register-card shadow-lg">
+            <div class="card-body p-4 p-md-5">
 
-        <h1 class="h4 text-center mb-3">Crear cuenta</h1>
-        <p class="text-center text-muted mb-4">
-          Completa tus datos para registrarte en StockPRO
-        </p>
+                <h1 class="h4 text-center mb-3">Crear cuenta</h1>
+                <p class="text-center text-muted mb-4">
+                    Completa tus datos para registrarte en StockPRO
+                </p>
 
-        {# Mensajes (éxito/errores generales) #}
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-{{ message.tags|default:'info' }} mb-3" role="alert">
-              {{ message }}
+                {# Mensajes globales (éxito/error) #}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags|default:'info' }} mb-3" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">RUT</label>
+                        {{ form.rut }}
+                        {% if form.rut.errors %}
+                            <div class="invalid-feedback d-block">{{ form.rut.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        {{ form.nombre }}
+                        {% if form.nombre.errors %}
+                            <div class="invalid-feedback d-block">{{ form.nombre.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="invalid-feedback d-block">{{ form.email.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Teléfono</label>
+                        {{ form.telefono }}
+                        {% if form.telefono.errors %}
+                            <div class="invalid-feedback d-block">{{ form.telefono.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Rol</label>
+                        {{ form.rol }}
+                        {% if form.rol.errors %}
+                            <div class="invalid-feedback d-block">{{ form.rol.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        {{ form.pass_field }}
+                        {% if form.pass_field.errors %}
+                            <div class="invalid-feedback d-block">{{ form.pass_field.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-2">
+                        Crear cuenta
+                    </button>
+                </form>
+
+                <p class="text-center text-muted mt-3 mb-0">
+                    ¿Ya tienes cuenta?
+                    <a href="{% url 'core:login' %}">Iniciar sesión</a>
+                </p>
+
             </div>
-          {% endfor %}
-        {% endif %}
-
-        <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit">Crear cuenta</button>
-        </form>
-
-        
-
-        <p class="text-center text-muted mt-3 mb-0">
-          ¿Ya tienes cuenta? <a href="{% url 'core:login' %}">Inicia sesión</a>
-        </p>
-      </div>
+        </div>
     </div>
-  </div>
 </section>
+
 {% endblock %}
