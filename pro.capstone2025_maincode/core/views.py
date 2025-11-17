@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import RegistroForm, LoginForm, PropiedadForm
-from .models import SpUsuario
+from .models import SpUsuario, SpPropiedad
 
 # Create your views here.
 
@@ -119,22 +119,19 @@ def createform_view(request):
 def editarform_view(request, pk):
     propiedad = get_object_or_404(SpPropiedad, pk=pk)
 
-    if request.method == "POST":
+    if request.method == 'POST':
         form = PropiedadForm(request.POST, request.FILES, instance=propiedad)
         if form.is_valid():
             form.save()
-            messages.success(request, "Propiedad actualizada correctamente.")
-            return redirect('core:propiedadcrud')
+            # al guardar, vuelves al listado de propiedades
+            return redirect('core:misprop')
     else:
         form = PropiedadForm(instance=propiedad)
 
     return render(request, 'core/createform.html', {
         'form': form,
-        'object': propiedad,   # el template lo usa para cambiar textos
+        'object': propiedad,
     })
-
-
-
 
 
 
@@ -157,8 +154,14 @@ def propiedadform_usreg_view(request):
 
 
 def misprop_view(request):
-    propiedades = Propiedad.objects.all()
-    return render(request, "core/misprop.html", {'propiedades': propiedades})
+    propiedades = SpPropiedad.objects.all().order_by('direccion')
+
+    return render(request, 'core/misprop.html', {  
+        'propiedades': propiedades,
+    })
+
+
+
 
 def usereg_view(request):
         
