@@ -157,7 +157,7 @@ def propiedadform_usreg_view(request):
 
 
 def misprop_view(request):
-    propiedades = Propiedad.objects.all()
+    propiedades = SpPropiedad.objects.all()
     return render(request, "core/misprop.html", {'propiedades': propiedades})
 
 def usereg_view(request):

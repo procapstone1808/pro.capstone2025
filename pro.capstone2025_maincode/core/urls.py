@@ -15,7 +15,9 @@ urlpatterns = [
     path("propiedadcrud/", propiedad_view, name="propiedadcrud"), 
     path("createform/", createform_view, name="createform"),
     path("propiedadform-usreg/", propiedadform_usreg_view, name="propiedadform_usreg"),
-     path("editarform/", editarform_view, name="editarform"),
+    path("misprop/", misprop_view, name="misprop"), #Listar propiedades
+    path("misprop/<int:pk>/editarform/", editarform_view, name="editarform"),
+     
      
     path("misprop/", misprop_view, name="misprop"),
     path("usregistrado/", usereg_view, name="usregistrado"),

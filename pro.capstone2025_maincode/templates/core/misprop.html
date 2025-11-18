@@ -2,12 +2,19 @@
 {% load static %}
 
 {% block nav_items %}
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:perfil' %}">Perfil</a></li>
   <li class="nav-item"><a class="nav-link fw-semibold" href="">Mis Propiedades</a></li>
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
   
 {% endblock %}
 
+{% block title %}Mis propiedades{% endblock %}
+
+
+
+
 {% block content %}
+
 <!--CAMBIAR ESTE CODIGO A ARCHIVO CSS MAS ADELANTE!!-->
 <style>
 .cards-wrap{
@@ -16,36 +23,21 @@
   gap:16px;                 /* separación de cards */
 }
 
-.cards-wrap .card{ width:18rem; }
+.cards-wrap .card{ width:25rem; }
 
 .card-img-top{ height:160px; object-fit:cover; }
 </style>
 
 <div class="cards-wrap">
 
-{% for propiedad in propiedades %}
- <div class="card" style="width: 25rem;">
-  {% if propiedad.imagen %}
-  <img class="card-img-top" src="{{ propiedad.imagen.url }}" alt="{{ propiedad.nombre }}">
-  {% else %}
-  <img class="card-img-top" src="{% static 'img/propiedad1.jpg' %}" alt="placeholder">
-  {% endif %}
-  <div class="card-body">
-    <p class="card-text"><strong>{{ propiedad.nombre }}</strong></p>
-    <p class="card-text"><small>{{ propiedad.ubicacion }}</small></p>
-    <p class="card-text"><small>{{ propiedad.descripcion|truncatewords:15 }}</small></p>
-    <button class="btn btn-primary" type="button"><a href="{% url 'core:propiedad_editar' propiedad.pk %}">Editar</a></button>
+  {# Card fija: Crear una nueva propiedad #}
+  <div class="card">
+    <img class="card-img-top" src="{% static 'img/crear-prop.jpg' %}" alt="propiedad">
+    <div class="card-body">
+      <p class="card-text">Crear una nueva propiedad</p>
+      <a class="btn btn-primary" href="{% url 'core:createform' %}">Ingresar</a>
+    </div>
   </div>
-<<<<<<< Updated upstream
- </div>
-{% empty %}
- <div style="padding: 20px;">
-  <p>No tienes propiedades registradas. <a href="">Crear una nueva</a></p>
- </div>
-{% endfor %}
-=======
-
-
 
   {# Cards dinámicas: una por cada propiedad existente #}
   {% for p in propiedades %}
@@ -72,19 +64,7 @@
   {% empty %}
     <p>No hay propiedades registradas todavía.</p>
   {% endfor %}
->>>>>>> Stashed changes
 
 </div>
-<!--Formulario para eliminar propiedad-->
-<form action=""
-      method="post"
-      style="display:inline;">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Deseas eliminar esta propiedad?')";>Eliminar</button>
-</form>
-
-
-
-
 
 {% endblock %}
