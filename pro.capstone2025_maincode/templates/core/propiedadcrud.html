@@ -23,16 +23,6 @@
 .card-img-top{ height:160px; object-fit:cover; }
 </style>
 
-<!--<div class="sp-grid">
-
- <a class="sp-card sp-card--cta" href="">
-    <div class="sp-card__body text-center">
-        <p class="sp-card__subtitle">Crear una nueva propiedad</p>
-        <div class="sp-card__plus">d</div>
-   </div>
- </a>
-
-</div>-->
 
 <div class="cards-wrap">
 
@@ -48,38 +38,19 @@
   <img class="card-img-top" src="{% static 'img/propiedad-reg.jpeg' %}" alt="editar">
   <div class="card-body">
     <p class="card-text">Editar propiedad</p>
-    <button class="btn btn-primary" type="button"><a href="{% url 'core:editarform' %}">Editar</a></button>
+    <button class="btn btn-primary" type="button"><a href="">Editar</a></button>
   </div>
  </div>
 
  <div class="card" style="width: 25rem;">
   <img class="card-img-top" src="{% static 'img/ver-prop.jpeg' %}" alt="ver">
   <div class="card-body">
-    <p class="card-text">Ver Propiedades ingresadas</p>
-    <button class="btn btn-primary" type="button"><a href="{% url 'core:terrenoslistos' %}">Verificar</a></button>
-  </div>
- </div>
-
-
- <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/nuevaprop.jpg' %}" alt="ver">
-  <div class="card-body">
-    <p class="card-text">Nuevas propiedades</p>
+    <p class="card-text">Ver propiedades ingresadas</p>
     <button class="btn btn-primary" type="button"><a href="{% url 'core:misprop' %}">Verificar</a></button>
   </div>
  </div>
 
 
-
 </div>
-
-
-
-
-
-
-
-
-
 
 {% endblock %}
