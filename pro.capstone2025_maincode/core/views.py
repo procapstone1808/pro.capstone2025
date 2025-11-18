@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.views.decorators.http import require_POST
 from django.db import transaction, IntegrityError 
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
@@ -91,11 +92,7 @@ def gestordocumentos_view(request):
 def propiedad_view(request):
     return render(request, "core/propiedadcrud.html")
 
-
-
-
-
-
+#CREAR PROPIEDAD
 def createform_view(request):
     if request.method == "POST":
         form = PropiedadForm(request.POST, request.FILES)
@@ -112,10 +109,7 @@ def createform_view(request):
         'object': None,   # para que el template sepa que es creación
     })
 
-
-
-
-
+#EDITAR PROPIEDAD
 def editarform_view(request, pk):
     propiedad = get_object_or_404(SpPropiedad, pk=pk)
 
@@ -123,7 +117,7 @@ def editarform_view(request, pk):
         form = PropiedadForm(request.POST, request.FILES, instance=propiedad)
         if form.is_valid():
             form.save()
-            # al guardar, vuelves al listado de propiedades
+            
             return redirect('core:misprop')
     else:
         form = PropiedadForm(instance=propiedad)
@@ -132,6 +126,29 @@ def editarform_view(request, pk):
         'form': form,
         'object': propiedad,
     })
+
+
+
+
+#LISTAR PROPIEDAD
+def misprop_view(request):
+    propiedades = SpPropiedad.objects.exclude(estado='INACTIVA').order_by('direccion')
+    return render(request, 'core/misprop.html', {
+        'propiedades': propiedades,
+    })
+
+#ELIMINAR PROPIEDAD (CAMBIO A ESTADO INACTIVO)
+@require_POST
+def propiedad_delete_view(request, pk):
+    propiedad = get_object_or_404(SpPropiedad, pk=pk)
+
+    propiedad.estado = 'INACTIVA'
+    propiedad.save(update_fields=['estado'])
+
+    messages.success(request, "La propiedad se marcó como inactiva y ya no aparecerá en el listado.")
+    return redirect('core:misprop')
+
+
 
 
 
@@ -148,19 +165,6 @@ def propiedadform_usreg_view(request):
     else:
         form = PropiedadForm()
     return render(request, "core/propiedadform.html", {'form': form})
-
-
-
-
-
-def misprop_view(request):
-    propiedades = SpPropiedad.objects.all().order_by('direccion')
-
-    return render(request, 'core/misprop.html', {  
-        'propiedades': propiedades,
-    })
-
-
 
 
 def usereg_view(request):

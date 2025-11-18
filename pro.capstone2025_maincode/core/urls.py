@@ -12,10 +12,13 @@ urlpatterns = [
     path("main-registrado/", mainregistrado_view, name="main-registrado"),
     path("gestor-documentos/", gestordocumentos_view, name="gestor-documentos"),
     path("propiedadcrud/", propiedad_view, name="propiedadcrud"), 
-    path("createform/", createform_view, name="createform"),
-    path("misprop/", misprop_view, name="misprop"), #Listar propiedades
+    path("createform/", createform_view, name="createform"), #CREAR PROPIEDADES
+    path("misprop/", misprop_view, name="misprop"), #LISTAR PROPIEDADES
 
-    path("misprop/<int:pk>/editarform/", editarform_view, name="editarform"),
+    path("misprop/<int:pk>/editarform/", editarform_view, name="editarform"),#EDITAR PROPIEDADES
+    #path("misprop/<int:pk>/eliminar/", propiedad_delete_view, name="propiedad_eliminar"), #ELIMINAR PROPIEDADES (CAMBIO DE ESTADO)
+    
+
     path("perfil/", perfil_view, name="perfil"),
 
 
@@ -25,9 +28,6 @@ urlpatterns = [
     path("propiedadform-usreg/", propiedadform_usreg_view, name="propiedadform_usreg"),
     path("propiedades/", propiedades_view, name="propiedades"),
     
-    #path("propiedades/<int:pk>/editar/", PropiedadUpdateView.as_view(), name="propiedad_editar"),
-
     
-
 
 ]
