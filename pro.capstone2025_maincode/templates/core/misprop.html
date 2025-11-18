@@ -36,14 +36,52 @@
     <p class="card-text"><small>{{ propiedad.descripcion|truncatewords:15 }}</small></p>
     <button class="btn btn-primary" type="button"><a href="{% url 'core:propiedad_editar' propiedad.pk %}">Editar</a></button>
   </div>
+<<<<<<< Updated upstream
  </div>
 {% empty %}
  <div style="padding: 20px;">
   <p>No tienes propiedades registradas. <a href="">Crear una nueva</a></p>
  </div>
 {% endfor %}
+=======
+
+
+
+  {# Cards dinámicas: una por cada propiedad existente #}
+  {% for p in propiedades %}
+    <div class="card">
+      {% if p.imagen %}
+        <img class="card-img-top" src="{{ p.imagen.url }}" alt="{{ p.direccion }}">
+      {% else %}
+        {# imagen por defecto si no se subió ninguna #}
+        <img class="card-img-top" src="{% static 'img/propiedad-default.jpg' %}" alt="propiedad">
+      {% endif %}
+
+      <div class="card-body">
+        <p class="card-text fw-semibold">{{ p.direccion }}</p>
+
+        <p class="text-muted small mb-2">
+          Rol {{ p.rol_sii }} · {{ p.comuna }}, {{ p.region }}
+        </p>
+
+        <a class="btn btn-primary" href="{% url 'core:editarform' p.propiedad_id %}">
+          Editar
+        </a>
+      </div>
+    </div>
+  {% empty %}
+    <p>No hay propiedades registradas todavía.</p>
+  {% endfor %}
+>>>>>>> Stashed changes
 
 </div>
+<!--Formulario para eliminar propiedad-->
+<form action=""
+      method="post"
+      style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Deseas eliminar esta propiedad?')";>Eliminar</button>
+</form>
 
 
 
