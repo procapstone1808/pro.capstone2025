@@ -21,6 +21,7 @@
 .cards-wrap .card{ width:18rem; }
 
 .card-img-top{ height:160px; object-fit:cover; }
+
 </style>
 
 
@@ -30,7 +31,15 @@
   <img class="card-img-top" src="{% static 'img/crear-prop.jpg' %}" alt="propiedad">
   <div class="card-body">
     <p class="card-text">Crear una nueva propiedad</p>
-    <button class="btn btn-primary" type="button"><a href="{% url 'core:createform' %}">Ingresar</a></button>
+    <a class="btn btn-primary" href="{% url 'core:createform' %}">Ingresar</a></button>
+  </div>
+ </div>
+ 
+ <div class="card" style="width: 25rem;">
+  <img class="card-img-top" src="{% static 'img/ver-prop.jpeg' %}" alt="ver">
+  <div class="card-body">
+    <p class="card-text">Ver mis propiedades</p>
+    <a class="btn btn-primary" href="{% url 'core:misprop' %}">Verificar</a></button>
   </div>
  </div>
 
@@ -38,18 +47,11 @@
   <img class="card-img-top" src="{% static 'img/propiedad-reg.jpeg' %}" alt="editar">
   <div class="card-body">
     <p class="card-text">Editar propiedad</p>
-    <button class="btn btn-primary" type="button"><a href="">Editar</a></button>
+    <a class="btn btn-primary" href="">Editar</a></button>
   </div>
  </div>
 
- <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/ver-prop.jpeg' %}" alt="ver">
-  <div class="card-body">
-    <p class="card-text">Ver propiedades ingresadas</p>
-    <button class="btn btn-primary" type="button"><a href="{% url 'core:misprop' %}">Verificar</a></button>
-  </div>
- </div>
-
+ 
 
 </div>
 
