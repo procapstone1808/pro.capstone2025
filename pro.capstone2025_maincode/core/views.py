@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views.decorators.http import require_POST
+from django.contrib.auth import logout
 from django.db import transaction, IntegrityError 
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
@@ -184,5 +185,26 @@ def perfil_view(request):
        sp_user = SpUsuario.objects.filter(usuario_id=sp_user_id).first()
 
     return render(request, "core/perfil.html", {'sp_user': sp_user})
+
+
+def logout_views(request):
+    logout(request)
+    messages.info(request, "Se ha cerrado la sesion")
+    return redirect('core:index')
+
+#PARA ELIMINAR PROPIEDAD (PROBAR AUN!!)
+def propiedadeliminar_view(request, pk):
+    propiedad = get_object_or_404(SpPropiedad, pk=pk)
+
+    if request.method == 'POST':
+        propiedad.delete()
+        messages.success(request, "La propiedad se ha eliminado correctamente")
+        return redirect('core:misprop')
+    
+    return render(request, 'core/propiedad_confirm_delete.html', {'propiedad': propiedad})
+
+
+
+
 
 
