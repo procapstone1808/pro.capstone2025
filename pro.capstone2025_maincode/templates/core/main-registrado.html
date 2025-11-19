@@ -9,6 +9,7 @@
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:login' %}">Documentos</a></li>
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:nosotros' %}">Nosotros</a></li>
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
+  <li class="nav-item"><a class="nav-link text-danger" href="{% url 'core:logout' %}" onclick="return confirm('¿Desea cerrar la sesion')">Cerrar Sesion</a></li>
 {% endblock %}
 
 
