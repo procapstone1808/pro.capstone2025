@@ -3,8 +3,9 @@
 
 {% block nav_items %}
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:perfil' %}">Perfil</a></li>
-  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:propiedadcrud' %}">Propiedades</a></li>
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
+   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:propiedadcrud' %}">Volver</a></li>
+  <li class="nav-item"><a class="nav-link text-danger" href="{% url 'core:logout' %}" onclick="return confirm('¿Desea cerrar la sesion?')">Cerrar Sesion</a></li>
   
 {% endblock %}
 
