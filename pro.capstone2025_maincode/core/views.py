@@ -212,12 +212,25 @@ def terrenoslistos_view(request):
     return render(request, "core/terrenoslistos.html")
 
 def perfil_view(request):
-    sp_user = None
-    sp_user_id = request.session.get('sp_user_id')
-    if sp_user_id:
-       sp_user = SpUsuario.objects.filter(usuario_id=sp_user_id).first()
 
-    return render(request, "core/perfil.html", {'sp_user': sp_user})
+    usuario = None #se usa como valor por defecto
+
+    usuario_id = request.session.get('usuario_id')
+
+    if usuario_id:
+        try:
+            usuario = SpUsuario.objects.get(pk=usuario_id)
+
+        except SpUsuario.DoesNotExist:
+            pass #si no existe, usuario queda como None
+
+    #CODIGO OFICIAL (HASTA AHORA)
+    #sp_user = None
+    #sp_user_id = request.session.get('sp_user_id')
+    #if sp_user_id:
+       #sp_user = SpUsuario.objects.filter(usuario_id=sp_user_id).first()
+
+    return render(request, "core/perfil.html", {'usuario': usuario})
 
 
 def logout_views(request):
@@ -236,6 +249,8 @@ def propiedadeliminar_view(request, pk):
         return redirect('core:misprop')
     
     return render(request, 'core/propiedad_confirm_delete.html', {'propiedad': propiedad})
+
+
 
 
 

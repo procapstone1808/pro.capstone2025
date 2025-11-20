@@ -3,8 +3,7 @@
 
 {% block nav_items %}
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:main-registrado' %}">Inicio</a></li>
-  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
-  <li class="nav-item"><a class="nav-link text-danger" href="{% url 'core:logout' %}" onclick="return confirm('¿Desea cerrar la sesion')">Cerrar Sesion</a></li>
+  <li class="nav-item"><a class="nav-link text-danger" href="{% url 'core:logout' %}" onclick="return confirm('¿Desea cerrar la sesion?')">Cerrar Sesion</a></li>
   
 {% endblock %}
 
@@ -47,7 +46,7 @@
  <div class="card" style="width: 25rem;">
   <img class="card-img-top" src="{% static 'img/propiedad-reg.jpeg' %}" alt="editar">
   <div class="card-body">
-    <p class="card-text">Ver mis propiedades</p>
+    <p class="card-text">Ver Propiedades</p>
     <a class="btn btn-primary" href="{% url 'core:ver_propiedades' %}">Ingresar</a></button>
   </div>
  </div>
