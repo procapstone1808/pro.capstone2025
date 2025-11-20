@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_items %}
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:perfil' %}">Perfil</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:propiedadcrud' %}">Propiedades</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
+{% endblock %}
+
+{% block title %}Propiedades ingresadas{% endblock %}
+
+{% block content %}
+
+<style>
+.cards-wrap{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+}
+.cards-wrap .card{ width:25rem; }
+.card-img-top{ height:160px; object-fit:cover; }
+</style>
+
+<div class="cards-wrap mt-3">
+
+  {% for p in propiedades %}
+    <div class="card">
+      {% if p.imagen %}
+        <img class="card-img-top" src="{{ p.imagen.url }}" alt="{{ p.direccion }}">
+      {% else %}
+        <img class="card-img-top" src="{% static 'img/propiedad-default.jpg' %}" alt="propiedad">
+      {% endif %}
+
+      <div class="card-body">
+        <p class="card-text fw-semibold mb-1">{{ p.direccion }}</p>
+
+        <p class="text-muted small mb-1">
+          Rol {{ p.rol_sii }} · {{ p.comuna }}, {{ p.region }}
+        </p>
+
+        <p class="text-muted small mb-0">
+          <strong>Encargado:</strong>
+          {% if p.usuario %}
+            {{ p.usuario.nombre }}
+          {% else %}
+            (sin asignar)
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  {% empty %}
+    <p>No hay propiedades registradas todavía.</p>
+  {% endfor %}
+
+</div>
+
+{% endblock %}

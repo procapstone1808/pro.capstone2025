@@ -5,29 +5,47 @@
 
 {% block nav_items %}
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:perfil' %}">Perfil</a></li>
-  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:propiedadcrud' %}">Propiedades</a></li>
-  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:nosotros' %}">Nosotros</a></li>
-  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
-  <li class="nav-item"><a class="nav-link text-danger" href="{% url 'core:logout' %}" onclick="return confirm('¿Desea cerrar la sesion?')">Cerrar Sesion</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:propiedadcrud' %}">Propiedades</a></li>  
+  <li class="nav-item"><a class="nav-link text-danger" href="{% url 'core:logout' %}" onclick="return confirm('¿Desea cerrar la sesion')">Cerrar Sesion</a></li>
 {% endblock %}
 
 
 <!-- Contenido Pagina -->
 
 {% block content %}
-<section class="home-hero full-bleed">
+<section class="home-hero d-flex flex-column">
 
-  <!-- CARRUSEL (fondo) -->
-  <div id="homeCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="5000">
+  <div id="homeCarousel" class="carousel slide flex-grow-1 position-relative" data-bs-ride="carousel" data-bs-interval="5000">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img src="{% static 'img/propiedad-reg.jpeg' %}" class="d-block w-100" alt="Imagen 1">
       </div>
+    </div>
+
+    <!-- CARD DE BIENVENIDA -->
+    <div class="position-absolute top-50 start-50 translate-middle" style="max-width: 720px; width: 90%;">
+      <div class="card shadow-lg border-0">
+        <div class="card-body text-center py-4 py-md-5">
+          <h2 class="h3 mb-3">
+            Bienvenido 
+            {% if request.session.sp_user_nombre %}
+              {{ request.session.sp_user_nombre }}
+            {% else %}
+              a StockPRO
+            {% endif %}
+          </h2>
+          <p class="lead mb-0">
+            Comienza a gestionar tus propiedades en <strong>StockPRO</strong>.
+          </p>
+          <a href="{% url 'core:misprop' %}" class="btn btn-primary mt-3">
+            Ir a mis propiedades
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- /CARD DE BIENVENIDA -->
+
   </div>
 
-
 </section>
-      
-
-
 {% endblock %}

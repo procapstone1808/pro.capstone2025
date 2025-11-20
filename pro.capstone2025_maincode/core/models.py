@@ -106,11 +106,20 @@ class SpPropiedad(models.Model):
         blank=True, null=True,
     )
 
-    # IMAGEN: Oracle guarda VARCHAR2(255) con la ruta; Django maneja el archivo
+    # IMAGEN
     imagen = models.ImageField(
         upload_to='propiedades/',
         db_column='IMAGEN',
         blank=True, null=True,
+    )
+
+    usuario = models.ForeignKey(
+        'SpUsuario',                 
+        db_column='USUARIO_ID',
+        on_delete=models.DO_NOTHING, # no queremos borrar propiedades si se borra el usuario
+        null=True,
+        blank=True,
+        related_name='propiedades',
     )
 
     class Meta:

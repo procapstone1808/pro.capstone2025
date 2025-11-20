@@ -2,8 +2,7 @@
 {% load static %}
 
 {% block nav_items %}
-  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
-   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:main-registrado' %}">Volver</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:main-registrado' %}">Inicio</a></li>
   <li class="nav-item"><a class="nav-link text-danger" href="{% url 'core:logout' %}" onclick="return confirm('¿Desea cerrar la sesion?')">Cerrar Sesion</a></li>
   
 {% endblock %}
@@ -32,40 +31,25 @@
   <img class="card-img-top" src="{% static 'img/crear-prop.jpg' %}" alt="propiedad">
   <div class="card-body">
     <p class="card-text">Crear una nueva propiedad</p>
-    <a href="{% url 'core:createform' %}" class="btn btn-primary w-100 mt-2">Ingresar</a>
-    <!--<button class="btn btn-primary" type="button"><a href="{% url 'core:createform' %}">Ingresar</a></button>-->
+    <a class="btn btn-primary" href="{% url 'core:createform' %}">Crear</a></button>
   </div>
  </div>
  
  <div class="card" style="width: 25rem;">
   <img class="card-img-top" src="{% static 'img/ver-prop.jpeg' %}" alt="ver">
   <div class="card-body">
-    <p class="card-text">Editar propiedad</p>
-    <a href="" class="btn btn-primary w-100 mt-2">Editar</a>
-    <!--<button class="btn btn-primary" type="button"><a href="">Editar</a></button>-->
+    <p class="card-text">Editar Propiedades</p>
+    <a class="btn btn-primary" href="{% url 'core:misprop' %}">Editar</a></button>
   </div>
  </div>
 
  <div class="card" style="width: 25rem;">
   <img class="card-img-top" src="{% static 'img/propiedad-reg.jpeg' %}" alt="editar">
   <div class="card-body">
-    <p class="card-text">Ver Propiedades ingresadas</p>
-     <a href="{% url 'core:terrenoslistos' %}" class="btn btn-primary w-100 mt-2">Verificar</a>
-    <!--<button class="btn btn-primary" type="button"><a href="{% url 'core:terrenoslistos' %}">Verificar</a></button>-->
+    <p class="card-text">Ver Propiedades</p>
+    <a class="btn btn-primary" href="{% url 'core:ver_propiedades' %}">Ingresar</a></button>
   </div>
  </div>
-
-
- <div class="card" style="width: 25rem;">
-  <img class="card-img-top" src="{% static 'img/nuevaprop.jpg' %}" alt="ver">
-  <div class="card-body">
-    <p class="card-text">Nuevas propiedades</p>
-     <a href="{% url 'core:misprop' %}" class="btn btn-primary w-100 mt-2">Verificar</a>
-    <!--<button class="btn btn-primary" type="button"><a href="{% url 'core:misprop' %}">Verificar</a></button>-->
-  </div>
- </div>
-
- 
 
 </div>
 
