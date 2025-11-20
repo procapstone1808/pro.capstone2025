@@ -51,7 +51,7 @@ def login_view(request):
             if u:
                 request.session['sp_user_id'] = int(u.usuario_id)
                 request.session['sp_user_nombre'] = u.nombre
-                request.session['sp_user_rol'] = u.rol
+                request.session['sp_user_rol'] = (u.rol or '').upper()
                 messages.success(request, f"Bienvenido, {u.nombre}.")
                 return redirect('core:main-registrado')
             else:
@@ -93,15 +93,21 @@ def gestordocumentos_view(request):
 def propiedad_view(request):
     return render(request, "core/propiedadcrud.html")
 
-#CREAR PROPIEDAD
+# CREAR PROPIEDAD
 def createform_view(request):
     if request.method == "POST":
         form = PropiedadForm(request.POST, request.FILES)
         if form.is_valid():
-            propiedad = form.save()
+            propiedad = form.save(commit=False)
+
+            # ID del usuario logueado desde la sesión
+            user_id = request.session.get('sp_user_id')
+            if user_id is not None:
+                propiedad.usuario_id = int(user_id)
+
+            propiedad.save()
             messages.success(request, "Propiedad creada correctamente.")
-            # Ajusta este redirect al listado de propiedades que tú tengas
-            return redirect('core:propiedadcrud')
+            return redirect('core:propiedadcrud')   # o 'core:misprop', como prefieras
     else:
         form = PropiedadForm()
 
@@ -131,42 +137,69 @@ def editarform_view(request, pk):
 
 
 
-#LISTAR PROPIEDAD
+# LISTAR PROPIEDAD (PARA EDITER Y ELIMINAR)
 def misprop_view(request):
-    propiedades = SpPropiedad.objects.exclude(estado='INACTIVA').order_by('direccion')
+    user_id = request.session.get('sp_user_id')
+    user_rol = request.session.get('sp_user_rol')
+
+    # Base: todas las propiedades
+    propiedades = SpPropiedad.objects.all().order_by('direccion')
+    # Si quieres seguir usando ESTADO para otras cosas, puedes dejar:
+    # propiedades = SpPropiedad.objects.exclude(estado='INACTIVA').order_by('direccion')
+
+    # Si NO es Admin → se filtra solo por las propiedades del usuario logueado
+    if user_rol != 'ADMIN':   # O 'ADMIN' si así está guardado en la BD
+        if user_id is not None:
+            propiedades = propiedades.filter(usuario_id=int(user_id))
+        else:
+            propiedades = SpPropiedad.objects.none()
+
     return render(request, 'core/misprop.html', {
         'propiedades': propiedades,
+        'user_rol': user_rol,
     })
 
-#ELIMINAR PROPIEDAD (CAMBIO A ESTADO INACTIVO)
-@require_POST
+
+    # LISTAR PROPIEDAD SOLO VER
+def ver_propiedades_view(request):
+    user_id = request.session.get('sp_user_id')
+    user_rol = request.session.get('sp_user_rol')
+
+    qs = SpPropiedad.objects.exclude(estado='INACTIVA')
+
+    if user_rol == 'ADMIN':
+        propiedades = qs.order_by('direccion')
+    else:
+        if user_id is not None:
+            propiedades = qs.filter(usuario_id=int(user_id)).order_by('direccion')
+        else:
+            propiedades = SpPropiedad.objects.none()
+
+    return render(request, 'core/ver-propiedades.html', {
+        'propiedades': propiedades,
+        'user_rol': user_rol,   # por si quieres mostrar algo distinto a futuro
+    })
+
+
+
+#ELIMINAR (SOLO ADMIN)
 def propiedad_delete_view(request, pk):
+    user_rol = request.session.get('sp_user_rol')
+
+    if user_rol != 'ADMIN':
+        messages.error(request, 'No tienes permisos para eliminar propiedades.')
+        return redirect('core:misprop')
+
     propiedad = get_object_or_404(SpPropiedad, pk=pk)
 
-    propiedad.estado = 'INACTIVA'
-    propiedad.save(update_fields=['estado'])
-
-    messages.success(request, "La propiedad se marcó como inactiva y ya no aparecerá en el listado.")
-    return redirect('core:misprop')
-
-
-
-
-
-
-
-# Nueva vista para crear propiedad y redirigir a usregistrado (sin afectar propiedadform_view)
-def propiedadform_usreg_view(request):
     if request.method == 'POST':
-        form = PropiedadForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Propiedad creada exitosamente.")
-            return redirect('core:usregistrado')
-    else:
-        form = PropiedadForm()
-    return render(request, "core/propiedadform.html", {'form': form})
+        propiedad.delete()
+        messages.success(request, 'La propiedad fue eliminada correctamente.')
+        return redirect('core:misprop')
 
+    return render(request, 'core/propiedad_confirm_delete.html', {
+        'propiedad': propiedad
+    })
 
 def usereg_view(request):
         
@@ -191,6 +224,7 @@ def logout_views(request):
     logout(request)
     messages.info(request, "Se ha cerrado la sesion")
     return redirect('core:index')
+
 
 #PARA ELIMINAR PROPIEDAD (PROBAR AUN!!)
 def propiedadeliminar_view(request, pk):

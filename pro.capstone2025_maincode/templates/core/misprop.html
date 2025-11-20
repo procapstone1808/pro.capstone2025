@@ -5,27 +5,21 @@
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:perfil' %}">Perfil</a></li>
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:propiedadcrud' %}">Propiedades</a></li>
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
-  
 {% endblock %}
 
 {% block title %}Mis propiedades{% endblock %}
 
-
-
-
 {% block content %}
 
-<!--CAMBIAR ESTE CODIGO A ARCHIVO CSS MAS ADELANTE!!-->
+<!-- ⚠️ Llevar esto a un CSS más adelante -->
 <style>
-.cards-wrap{
-  display:flex;
-  flex-wrap:wrap;
-  gap:16px;                 /* separación de cards */
-}
-
-.cards-wrap .card{ width:25rem; }
-
-.card-img-top{ height:160px; object-fit:cover; }
+  .cards-wrap{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;               /* separación de cards */
+  }
+  .cards-wrap .card{ width:25rem; }
+  .card-img-top{ height:160px; object-fit:cover; }
 </style>
 
 <div class="cards-wrap">
@@ -35,30 +29,55 @@
     <img class="card-img-top" src="{% static 'img/crear-prop.jpg' %}" alt="propiedad">
     <div class="card-body">
       <p class="card-text">Crear una nueva propiedad</p>
-      <a class="btn btn-primary" href="{% url 'core:createform' %}">Ingresar</a>
+      <a class="btn btn-primary" href="{% url 'core:createform' %}">Crear</a>
     </div>
   </div>
 
   {# Cards dinámicas: una por cada propiedad existente #}
   {% for p in propiedades %}
     <div class="card">
+
       {% if p.imagen %}
         <img class="card-img-top" src="{{ p.imagen.url }}" alt="{{ p.direccion }}">
       {% else %}
-        {# imagen por defecto si no se subió ninguna #}
         <img class="card-img-top" src="{% static 'img/propiedad-default.jpg' %}" alt="propiedad">
       {% endif %}
 
       <div class="card-body">
-        <p class="card-text fw-semibold">{{ p.direccion }}</p>
+        <p class="card-text fw-semibold mb-1">{{ p.direccion }}</p>
 
-        <p class="text-muted small mb-2">
+        <p class="card-text text-muted mb-1">
+          <strong>Encargado:</strong>
+          {% if p.usuario %}
+            {{ p.usuario.nombre }}
+          {% else %}
+            (sin asignar)
+          {% endif %}
+        </p>
+
+        <p class="card-text text-muted mb-2">
           Rol {{ p.rol_sii }} · {{ p.comuna }}, {{ p.region }}
         </p>
 
-        <a class="btn btn-primary" href="{% url 'core:editarform' p.propiedad_id %}">
-          Editar
-        </a>
+        <div class="d-flex gap-2">
+          <!-- Botón editar (todos los usuarios) -->
+          <a class="btn btn-primary btn-sm"
+             href="{% url 'core:editarform' p.propiedad_id %}">
+            Editar
+          </a>
+
+          <!-- Botón eliminar: solo visible para ADMIN -->
+          {% if user_rol == 'ADMIN' %}
+            <form method="post"
+                  action="{% url 'core:propiedad_delete' p.propiedad_id %}"
+                  onsubmit="return confirm('¿Seguro que deseas eliminar esta propiedad? Esta acción no se puede deshacer.');">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-danger btn-sm">
+                Eliminar
+              </button>
+            </form>
+          {% endif %}
+        </div>
       </div>
     </div>
   {% empty %}
