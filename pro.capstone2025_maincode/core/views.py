@@ -256,4 +256,19 @@ def propiedadeliminar_view(request, pk):
 
 
 
+#PARA ELIMINAR PROPIEDAD (PROBAR AUN!!)
+def propiedadeliminar_view(request, pk):
+    propiedad = get_object_or_404(SpPropiedad, pk=pk)
+
+    if request.method == 'POST':
+        propiedad.delete()
+        messages.success(request, "La propiedad se ha eliminado correctamente")
+        return redirect('core:misprop')
+    
+    return render(request, 'core/propiedad_confirm_delete.html', {'propiedad': propiedad})
+
+
+
+
+
 
