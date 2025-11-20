@@ -24,6 +24,7 @@ urlpatterns = [
     path("terrenoslistos/", terrenoslistos_view, name="terrenoslistos"),
     path("perfil/", perfil_view, name="perfil"),
     path("logout/", logout_views, name="logout"),
+    #path('propiedad/<int:pk>/eliminar/', eliminar_view, name='propiedad_eliminar'), 
     
     #path("propiedades/<int:pk>/editar/", PropiedadUpdateView.as_view(), name="propiedad_editar"),
 
