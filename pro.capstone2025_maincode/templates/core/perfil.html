@@ -3,9 +3,10 @@
 
 {% block nav_items %}
   <li class="nav-item"><a class="nav-link" href="">Inicio</a></li>
-  <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Mi perfil</a></li>
+  <!--<li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Mi perfil</a></li>-->
   <li class="nav-item"><a class="nav-link" href="{% url 'core:ayuda' %}">Ayuda</a></li>
   <li class="nav-item"><a class="nav-link" href="{% url 'core:nosotros' %}">Nosotros</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url 'core:main-registrado' %}">Volver</a></li>
 {% endblock %}
 
 {% block content %}
@@ -31,7 +32,7 @@
             </h5>
              <img class="card-img-top" src="{% static 'img/fotoperfil.png' %}" alt="propiedad">
 
-            <p class="text-muted mb-2">@{{ user.username }}</p>
+            <p class="text-muted mb-2">@{{user.username}}</p>
 
 
             <p class="small text-muted mb-3">
@@ -55,17 +56,39 @@
             <dl class="row mb-3">
               <dt class="col-sm-4">Nombre completo</dt>
               <dd class="col-sm-8">
-                {{ user.get_full_name|default:"Sin definir" }}
+                {{usuario.get_full_name}}
+                
+                <!--new code--> 
+                <!--{% if user.first_name or user.last_name %}
+                  {{user.get_full_name}}
+                {% else %}
+                  Sin definir
+                {% endif %}-->
+
+                <!--EL CODIGO COMENTADO ES LO QUE TENIA YO ANTERIORMENTE--> 
+                <!--{{ user.get_full_name|default:"Sin definir" }}-->
               </dd>
 
               <dt class="col-sm-4">Usuario</dt>
               <dd class="col-sm-8">
-                {{ user.username }}
+                {% if usuario %}
+                  {{usuario.nombre}}
+                {% else %}
+                  Invitado
+                {% endif %}
+                <!--codigo anterior-->
+                <!--{{ user.username }}-->
               </dd>
 
               <dt class="col-sm-4">Correo electrónico</dt>
               <dd class="col-sm-8">
-                {{ user.email|default:"Sin definir" }}
+                 {% if u %}
+                    {{u.email|default:"user@gmail.com"}}
+                  {% else %}
+                    user@gmail.com
+                  {% endif %}
+                   <!--codigo anterior-->
+                <!--{{ user.email|default:"Sin definir" }}-->
               </dd>
 
               <dt class="col-sm-4">Fecha de registro</dt>
@@ -86,13 +109,18 @@
               <div class="col-sm-6">
                 <label class="form-label mb-0 small text-muted">Teléfono</label>
                 <div class="fw-semibold">
-                  {{ user.perfil.telefono|default:"No registrado" }}
+                  {% if usuario and usuario.telefono %}
+                    {{usuario.telefono}}
+                  {% else %}
+                    No registrado
+                  {% endif %}
+                  <!--{{ user.perfil.telefono|default:"No registrado" }}-->
                 </div>
               </div>
               <div class="col-sm-6">
                 <label class="form-label mb-0 small text-muted">Dirección</label>
                 <div class="fw-semibold">
-                  {{ user.perfil.direccion|default:"No registrada" }}
+                  {{ usuario.perfil.direccion|default:"No registrada" }}
                 </div>
               </div>
               <div class="col-sm-6">
