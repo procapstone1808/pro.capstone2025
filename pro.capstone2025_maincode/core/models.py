@@ -89,6 +89,7 @@ class SpPropiedad(models.Model):
         ('DISPONIBLE', 'Disponible'),
         ('VENDIDA', 'Vendida'),
         ('ARRENDADA', 'Arrendada'),
+        ('INACTIVA', 'Inactiva (oculta)'),
     ]
     estado = models.CharField(
         max_length=20,

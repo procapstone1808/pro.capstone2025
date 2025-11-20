@@ -292,3 +292,7 @@ main {
   user-select: none;
 }
 
+
+.btn-primary {
+    color: white !important;
+}
