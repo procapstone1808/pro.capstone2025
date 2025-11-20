@@ -120,22 +120,19 @@ def createform_view(request):
 def editarform_view(request, pk):
     propiedad = get_object_or_404(SpPropiedad, pk=pk)
 
-    if request.method == "POST":
+    if request.method == 'POST':
         form = PropiedadForm(request.POST, request.FILES, instance=propiedad)
         if form.is_valid():
             form.save()
-            messages.success(request, "Propiedad actualizada correctamente.")
-            return redirect('core:propiedadcrud')
+            # al guardar, vuelves al listado de propiedades
+            return redirect('core:misprop')
     else:
         form = PropiedadForm(instance=propiedad)
 
     return render(request, 'core/createform.html', {
         'form': form,
-        'object': propiedad,   # el template lo usa para cambiar textos
+        'object': propiedad,
     })
-
-
-
 
 
 

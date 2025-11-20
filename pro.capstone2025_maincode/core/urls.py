@@ -10,7 +10,6 @@ urlpatterns = [
     path("ayuda/", ayuda_view, name="ayuda"), 
     path("nosotros/", nosotros_view, name="nosotros"), 
     path("main-registrado/", mainregistrado_view, name="main-registrado"),
-    path("propiedades/", propiedades_view, name="propiedades"),
     path("gestor-documentos/", gestordocumentos_view, name="gestor-documentos"),
     path("propiedadcrud/", propiedad_view, name="propiedadcrud"), 
     path("createform/", createform_view, name="createform"),
