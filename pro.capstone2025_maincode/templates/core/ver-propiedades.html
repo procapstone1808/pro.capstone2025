@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block nav_items %}
-  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:perfil' %}">Perfil</a></li>
+  <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:main-registrado' %}">Inicio</a></li>
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:propiedadcrud' %}">Propiedades</a></li>
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:ayuda' %}">Ayuda</a></li>
 {% endblock %}
@@ -46,6 +46,25 @@
             (sin asignar)
           {% endif %}
         </p>
+
+         
+        {% if p.url_docs %}
+          <a href="{{ p.url_docs }}"
+             class="btn btn-primary btn-sm"
+             target="_blank"
+             rel="noopener">
+            Ver documentos
+          </a>
+        {% else %}
+          <button type="button"
+                  class="btn btn-secondary btn-sm"
+                  disabled>
+            Sin documentos
+          </button>
+        {% endif %}
+
+
+
       </div>
     </div>
   {% empty %}
