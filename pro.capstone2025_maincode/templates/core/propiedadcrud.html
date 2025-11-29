@@ -2,6 +2,14 @@
 {% load static %}
 
 {% block nav_items %}
+{% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }} mb-3" role="alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+
   <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'core:main-registrado' %}">Inicio</a></li>
   <li class="nav-item"><a class="nav-link text-danger" href="{% url 'core:logout' %}" onclick="return confirm('¿Desea cerrar la sesion?')">Cerrar Sesion</a></li>
   

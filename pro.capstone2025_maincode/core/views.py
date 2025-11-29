@@ -52,7 +52,7 @@ def login_view(request):
                 request.session['sp_user_id'] = int(u.usuario_id)
                 request.session['sp_user_nombre'] = u.nombre
                 request.session['sp_user_rol'] = (u.rol or '').upper()
-                messages.success(request, f"Bienvenido, {u.nombre}.")
+                #messages.success(request, f"Bienvenido, {u.nombre}.")
                 return redirect('core:main-registrado')
             else:
                 form.add_error(None, 'Credenciales inválidas o cuenta inactiva.')
