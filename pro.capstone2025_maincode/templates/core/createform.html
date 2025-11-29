@@ -154,6 +154,25 @@
             {% endif %}
           </div>
 
+          
+          <!-- Enlace a documentos (Google Drive) -->
+          <div class="col-12">
+            <label for="{{ form.url_docs.id_for_label }}" class="form-label">
+              Enlace a documentos (Google Drive)
+            </label>
+            {{ form.url_docs }}
+
+            {% if form.url_docs.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.url_docs.errors.0 }}
+              </div>
+            {% endif %}
+
+            <small class="form-text text-muted">
+              Pega aquí el link de Google Drive con los documentos de esta propiedad.
+            </small>
+          </div>
+
           <!-- Botones -->
           <div class="col-12 d-flex gap-2 mt-3">
             <button class="btn btn-primary" type="submit">
@@ -161,7 +180,7 @@
             </button>
             <a class="btn btn-outline-dark" href="{% url 'core:propiedadcrud' %}">Cancelar</a>
           </div>
-
+          
         </form>
 
       </div>

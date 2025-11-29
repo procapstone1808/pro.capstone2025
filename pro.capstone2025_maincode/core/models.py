@@ -112,6 +112,14 @@ class SpPropiedad(models.Model):
         db_column='IMAGEN',
         blank=True, null=True,
     )
+    
+    url_docs = models.CharField(
+        max_length=400,
+        db_column='URL_DOCS',
+        blank=True,
+        null=True,
+        verbose_name='Enlace a documentos',
+    )
 
     usuario = models.ForeignKey(
         'SpUsuario',                 

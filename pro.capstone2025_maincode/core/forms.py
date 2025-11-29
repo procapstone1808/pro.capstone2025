@@ -1,6 +1,7 @@
 import re
 from django import forms
 from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 from .models import SpUsuario, SpPropiedad
 
 
@@ -103,6 +104,7 @@ class PropiedadForm(forms.ModelForm):
             'estado',
             'precio_ref_clp',
             'imagen',
+            'url_docs',
         ]
 
         labels = {
@@ -119,6 +121,7 @@ class PropiedadForm(forms.ModelForm):
             'estado': 'Estado',
             'precio_ref_clp': 'Precio referencia (CLP)',
             'imagen': 'Imagen',
+            'url_docs': 'Enlace a documentos (Drive, etc.)',
         }
 
         widgets = {
@@ -178,10 +181,28 @@ class PropiedadForm(forms.ModelForm):
                 'min': '0',
             }),
 
-            'imagen': forms.ClearableFileInput(attrs={
+            'imagen': forms.FileInput(attrs={
                 'class': 'form-control',
             }),
+
+            'url_docs': forms.URLInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'https://drive.google.com/...',
+                }),
+
         }
+
+    def clean_url_docs(self):
+        url = self.cleaned_data.get('url_docs')
+        if url:
+            validator = URLValidator()
+            try:
+                validator(url)
+            except ValidationError:
+                raise forms.ValidationError("Ingresa un enlace válido.")
+        return url
+
 
 
     def clean_rol_sii(self):
@@ -203,14 +224,6 @@ class PropiedadForm(forms.ModelForm):
             raise ValidationError("Ya existe una propiedad registrada con este Rol SII.")
 
         return rol
-
-
-
-
-
-
-
-
 
 
     def clean_nombre(self):
@@ -251,8 +264,6 @@ class PropiedadForm(forms.ModelForm):
         return data
         
 
-
-
     def clean_nombre(self):
         nombre = self.cleaned_data.get('nombre', '')
         if len(nombre) < 5:
@@ -292,7 +303,7 @@ class PropiedadForm(forms.ModelForm):
             self.add_error('ubicacion', "La ubicación no puede ser igual al nombre de la propiedad.")
         return data
 
-
+    
 
 
 
