@@ -34,6 +34,8 @@
     </div>
   </div>
 
+
+
   {# Cards dinámicas: una por cada propiedad existente #}
   {% for p in propiedades %}
     <div class="card">
@@ -86,5 +88,12 @@
   {% endfor %}
 
 </div>
+<!--Formulario para eliminar propiedad-->
+<form action=""
+      method="post"
+      style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Deseas eliminar esta propiedad?')";>Eliminar</button>
+</form>
 
 {% endblock %}
