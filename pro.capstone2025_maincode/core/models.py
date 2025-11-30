@@ -21,6 +21,9 @@ class SpUsuario(models.Model):
 
     def __str__(self):
         return f"{self.nombre} ({self.rut})"
+    
+    def get_full_name(self):
+        return f"{self.nombre}".strip()
 
 
 

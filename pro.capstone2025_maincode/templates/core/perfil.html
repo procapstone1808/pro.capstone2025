@@ -23,7 +23,8 @@
             <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto"
                  style="width: 140px; height: 140px;">
               <span class="fs-1 text-uppercase">
-                {{ user.first_name|default:user.username|slice:":1" }}{{ user.last_name|slice:":1" }}
+                {{usuario.nombre|default:""|slice:":1"}}
+                <!--{{ user.first_name|default:user.username|slice:":1" }}{{ user.last_name|slice:":1" }}-->
               </span>
             </div>
 
@@ -56,7 +57,8 @@
             <dl class="row mb-3">
               <dt class="col-sm-4">Nombre completo</dt>
               <dd class="col-sm-8">
-                {{usuario.get_full_name}}
+                {{usuario.nombre|default:"" }}
+                <!--{{usuario.get_full_name}}-->
                 
                 <!--new code--> 
                 <!--{% if user.first_name or user.last_name %}
@@ -71,22 +73,26 @@
 
               <dt class="col-sm-4">Usuario</dt>
               <dd class="col-sm-8">
-                {% if usuario %}
+                <!--CODIGO NUEVO  -->
+                {{ user.username|default:"Invitado" }}
+                <!--{% if usuario %}
                   {{usuario.nombre}}
                 {% else %}
                   Invitado
-                {% endif %}
+                {% endif %}-->
                 <!--codigo anterior-->
                 <!--{{ user.username }}-->
               </dd>
 
               <dt class="col-sm-4">Correo electrónico</dt>
               <dd class="col-sm-8">
-                 {% if u %}
+                 {{ usuario.email|default:"user@gmail.com" }}
+                 <!--codigo anterior 29/11-->
+                 <!--{% if u %}
                     {{u.email|default:"user@gmail.com"}}
                   {% else %}
                     user@gmail.com
-                  {% endif %}
+                  {% endif %}-->
                    <!--codigo anterior-->
                 <!--{{ user.email|default:"Sin definir" }}-->
               </dd>
