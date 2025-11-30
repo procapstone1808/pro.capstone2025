@@ -144,11 +144,8 @@ def misprop_view(request):
 
     # Base: todas las propiedades
     propiedades = SpPropiedad.objects.all().order_by('direccion')
-    # Si quieres seguir usando ESTADO para otras cosas, puedes dejar:
-    # propiedades = SpPropiedad.objects.exclude(estado='INACTIVA').order_by('direccion')
-
-    # Si NO es Admin → se filtra solo por las propiedades del usuario logueado
-    if user_rol != 'ADMIN':   # O 'ADMIN' si así está guardado en la BD
+  
+    if user_rol != 'ADMIN':
         if user_id is not None:
             propiedades = propiedades.filter(usuario_id=int(user_id))
         else:
