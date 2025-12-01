@@ -1,0 +1,5 @@
+Con respecto al video de demostración del aplicativo, tuvimos que dejarlo un link en una nota aparte, 
+debido a que al intentar subir la carpeta respectiva de la fase 3, tuvimos un problema con el video, ya que debido a su duración era un archivo de mayor capacidad que los demás,
+por lo que el sistema de GitHub, no nos permitía subir la carpeta de Fase 3. Por lo tanto se tomo la solución de dejarlo 
+como link para ver en el bloc de notas llamado 'Link Video demostración aplicativo STOCK PRO'.
+
